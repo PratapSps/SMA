@@ -9,5 +9,5 @@ from sps.constant import *
 if __name__ == '__main__':
     StartApp=createAppGui()
     StartApp.createMenuBar()
-    StartApp.createHomeTab()
+    StartApp.createHomeTab("Home")
     app.mainloop()

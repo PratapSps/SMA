@@ -10,16 +10,11 @@ from tkinter import font
 from sps.CustomNotebook import *
 import ttk
 import numbers
-
-
-
-global app
-global logo
-global appNotebook
+from sps import constant
 
 
 class createAppGui:
-    
+    name=""
     #Constructor for initalizing GUI
     def __init__(self):
         icon = PhotoImage(file=appLogo)
@@ -47,30 +42,44 @@ class createAppGui:
         menubar.add_cascade(label="File", menu=filemenu)
         app.config(menu=menubar)
     
-    
-
-    def createHomeTab(self):
-        homeframe = Frame(appNotebook,background='white')   # first page, which would get widgets gridded into it
-        appNotebook.add(homeframe, text='Home')
-        w = Label(homeframe, image=logo, bg="white", fg="white")
+        
+    def createHomeTab(self,name):
+        Home_frame = Frame(notebook,background='white')
+        w = Label(Home_frame, image=logo, bg="white", fg="white")
         w.place(x = 200, y = 100)
-        w1 = Label(homeframe, text="SMA", bg="white", fg="black",font=('Tempus Sans ITC', 120, 'bold'))
+        w1 = Label(Home_frame, text="SMA", bg="white", fg="black",font=('Tempus Sans ITC', 120, 'bold'))
         w1.place(x = 400, y = 90)
+        notebook.add(Home_frame, text=name)
         
         
-        
+#     def createHomeTab(self):
+#         homeframe = Frame(appNotebook,background='white')   # first page, which would get widgets gridded into it
+#         appNotebook.add(homeframe, text='Home')
+#         w = Label(homeframe, image=logo, bg="white", fg="white")
+#         w.place(x = 200, y = 100)
+#         w1 = Label(homeframe, text="SMA", bg="white", fg="black",font=('Tempus Sans ITC', 120, 'bold'))
+#         w1.place(x = 400, y = 90)
+    
     def createNewTab(self):
-        workframe=Frame(appNotebook,background='white')   # first page, which would get widgets gridded into it
-        appNotebook.add(workframe, text='work')
-
-
-           
-        
- 
+        self.getTabName(app)
+        frame = Frame(notebook)
+        notebook.add(frame, text='new')
+        print(constant.username)
         
         
         
+    def getTabName(self,parent):
+        top = self.top = Toplevel(parent)
+        self.myLabel = Label(top, text='Enter name for your Search: ')
+        self.myLabel.pack()
+        self.myEntryBox = Entry(top)
+        self.myEntryBox.pack()
+        self.mySubmitButton = Button(top, text='Submit', command=self.send)
+        self.mySubmitButton.pack()
+        app.wait_window(top)
         
-        
+    def send(self):
+        constant.username=self.myEntryBox.get()
+        self.top.destroy()
 
     

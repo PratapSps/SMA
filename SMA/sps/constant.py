@@ -10,8 +10,10 @@ app=Tk()
 appLogo='images/applogo.png'
 appTitle='SMA'
 logo = PhotoImage(file=appLogo)
-appNotebook = ttk.Notebook(app)
-appNotebook.grid(row=0,column=0,columnspan=50,rowspan=49,sticky='NESW')
-
+# appNotebook = ttk.Notebook(app)
+# appNotebook.grid(row=0,column=0,columnspan=50,rowspan=49,sticky='NESW')
+notebook = CustomNotebook(width=200, height=200)
+notebook.pack(side="top", fill="both", expand=True)
+username='dfgfd'
     
     
