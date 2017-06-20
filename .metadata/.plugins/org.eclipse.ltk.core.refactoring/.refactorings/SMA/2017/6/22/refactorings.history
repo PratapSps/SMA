@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;SMA/sps/Images/cutmypic (1).png&apos; to &apos;applogo.png&apos;" description="Rename resource &apos;cutmypic (1).png&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="sps/Images/cutmypic (1).png" name="applogo.png" stamp="1496526140215" updateReferences="true"/>
+</session>

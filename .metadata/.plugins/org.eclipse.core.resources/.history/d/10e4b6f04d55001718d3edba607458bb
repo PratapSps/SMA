@@ -1,0 +1,70 @@
+'''
+Created on Jun 3, 2017
+
+@author: Survya Pratap Singh
+'''
+from tkinter import *
+from _ctypes import alignment
+from tkinter import ttk
+from sps.constant import *
+from tkinter import font
+from sps.CustomNotebook import *
+
+
+
+global app
+global logo
+global notebook
+
+class createAppGui:
+    
+    #Constructor for initalizing GUI
+    def __init__(self):
+        icon = PhotoImage(file=appLogo)
+        app.tk.call('wm', 'iconphoto', app._w, icon)
+        app.wm_title(appTitle)
+        app.geometry('500x500')
+        rows=0
+        while rows<50:
+            app.rowconfigure(rows, weight=1)
+            app.columnconfigure(rows, weight=1)
+            rows+=1
+            
+        app.configure(background='white')
+     
+     #Method for creating menubar   
+    def createMenuBar(self):
+        menubar = Menu(app)
+        filemenu =Menu(menubar)
+        filemenu.add_command(label="New")
+        filemenu.add_command(label="Open", command='')
+        filemenu.add_command(label="Save", command='')
+        filemenu.add_separator()
+        filemenu.add_command(label="Exit", command=app.quit)
+        menubar.add_cascade(label="File", menu=filemenu)
+        app.config(menu=menubar)
+    
+    
+
+        
+
+#     def CreateHome(self):
+#         
+#         tab= ttk.Notebook(app)
+#         tab_home=Frame(tab,background='white')
+#         tab_home.grid(column = 0, row = 0, sticky = (N, W, E, S))
+#         w = Label(tab_home, image=logo, bg="white", fg="white")
+#         w.place(x = 200, y = 100)
+#         w1 = Label(tab_home, text="SMA", bg="white", fg="black",font=('Tempus Sans ITC', 120, 'bold'))
+#         w1.place(x = 400, y = 90)
+#         tab.add(tab_home,text='Home')
+        
+        
+ 
+        
+        
+        
+        
+        
+
+    
