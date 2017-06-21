@@ -1,1 +1,13 @@
-DELSTRsps.GUI
+INSTUPsps.AppVariables
+C:\Users\pratap\Desktop\SMA\SMA\sps\AppVariables.py
+INFOS:&&3|1|2|0&&3|3|2|0&&3|4|2|0&&3|5|2|0&&3|6|2|0&&3|7|2|0&&3|8|2|0&&3|9|2|0&&3|10|2|0
+app=1
+menubar=9
+appLogo=3
+checktab=8
+filemenu=10
+logo=5
+sps.AppVariables=2
+appTitle=4
+notebook=6
+username=7

@@ -1,22 +1,22 @@
 -- VERSION_4
 -- START DISKCACHE_2
-C:\Users\pratap\Google Drive\Capstone Project\SMA\.metadata\.plugins\org.eclipse.core.resources\.projects\SMA\com.python.pydev.analysis\v2_indexcache
-sps.constant|1497934759368356000|C:\Users\pratap\Google Drive\Capstone Project\SMA\SMA\sps\constant.py
-sps.GUI|1497936026423820000|C:\Users\pratap\Google Drive\Capstone Project\SMA\SMA\sps\GUI.py
-sps.test|1497932290857667000|C:\Users\pratap\Google Drive\Capstone Project\SMA\SMA\sps\test.py
-sps.CustomNotebook|1497931063449404000|C:\Users\pratap\Google Drive\Capstone Project\SMA\SMA\sps\CustomNotebook.py
-sps.__init__|1496519814428497000|C:\Users\pratap\Google Drive\Capstone Project\SMA\SMA\sps\__init__.py
-sps.MainAppClass|1497930733770789000|C:\Users\pratap\Google Drive\Capstone Project\SMA\SMA\sps\MainAppClass.py
+C:\Users\pratap\Desktop\SMA\.metadata\.plugins\org.eclipse.core.resources\.projects\SMA\com.python.pydev.analysis\v2_indexcache
+sps.constant|1498022093167967000|C:\Users\pratap\Desktop\SMA\SMA\sps\constant.py
+sps.GUI|1498022138592559000|C:\Users\pratap\Desktop\SMA\SMA\sps\GUI.py
+sps.test|1498021847912282000|C:\Users\pratap\Desktop\SMA\SMA\sps\test.py
+sps.CustomNotebook|1497931063449404000|C:\Users\pratap\Desktop\SMA\SMA\sps\CustomNotebook.py
+sps.__init__|1496519814428497000|C:\Users\pratap\Desktop\SMA\SMA\sps\__init__.py
+sps.MainAppClass|1497930733770789000|C:\Users\pratap\Desktop\SMA\SMA\sps\MainAppClass.py
 -- END DISKCACHE
 -- START DICTIONARY
-15
+14
 8=CustomNotebook.__init__
 14=createAppGui.getTabName
-15=MyDialog.send
-13=MyDialog.__init__
 11=CustomNotebook.on_close_release
 3=sps.CustomNotebook
-12=CustomNotebook.__initialize_custom_style
+12=TestMenu.__init__
+9=TestMenu
+13=CustomNotebook.__initialize_custom_style
 7=createAppGui
 1=sps.constant
 10=CustomNotebook.on_close_press
@@ -24,34 +24,38 @@ sps.MainAppClass|1497930733770789000|C:\Users\pratap\Google Drive\Capstone Proje
 4=sps.test
 6=CustomNotebook
 5=sps.MainAppClass
-9=MyDialog
 -- END DICTIONARY
 -- START TREE 1
-11
+12
 app|3|appLogo!11@app!11@appTitle!11@
+che|1|checktab!11@
 cre|1|createAppGui!17@
 cus|1|CustomNotebook!25@
+fil|1|filemenu!11@
 log|1|logo!11@
-mai|2|mainLabel!35@mainButton!35@
-myd|1|MyDialog!33@
+mai|1|main!34@
+men|1|menubar!11@
 not|1|notebook!11@
-onc|1|onClick!34@
-roo|1|root!35@
 sta|1|StartApp!43@
+tes|1|TestMenu!33@
 use|1|username!11@
 -- END TREE
 -- START TREE 2
-12
+16
 __i|6|__init__!6&26@__initialized!6&27@__init__!7&18@__initialize_custom_style!6&26@__inititialized!8&27@__init__!9&34@
 _ac|3|_active!8&27@_active!10&27@_active!11&27@
+cmd|1|cmdmenu!12&35@
 cre|3|createHomeTab!7&18@createNewTab!7&18@createMenuBar!7&18@
 get|1|getTabName!7&18@
-ima|1|images!12&27@
-mye|2|myEntryBox!13&35@myEntryBox!14&19@
-myl|2|myLabel!14&19@myLabel!13&35@
-mys|2|mySubmitButton!13&35@mySubmitButton!14&19@
+ima|1|images!13&27@
+mas|1|master!12&35@
+men|1|menubar!12&35@
+mye|1|myEntryBox!14&19@
+myl|1|myLabel!14&19@
+mys|1|mySubmitButton!14&19@
 nam|1|name!7&19@
 on_|2|on_close_release!6&26@on_close_press!6&26@
-sen|2|send!7&18@send!9&34@
-use|1|username!15&35@
+sen|1|send!7&18@
+top|1|top!12&35@
+unu|1|unused!12&35@
 -- END TREE

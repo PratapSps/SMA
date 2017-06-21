@@ -5,12 +5,12 @@ Created on Jun 3, 2017
 '''
 from tkinter import *
 from _ctypes import alignment
-from sps.constant import *
+from sps.AppVariables import *
 from tkinter import font
 from sps.CustomNotebook import *
 import ttk
 import numbers
-from sps import constant
+from sps import AppVariables
 from faulthandler import disable
 
 
@@ -63,8 +63,8 @@ class createAppGui:
     def createNewTab(self):
         self.getTabName(app)
         new_frame=Frame(notebook,background='white')
-        notebook.add(new_frame,text=constant.username)
-        constant.checktab=1
+        notebook.add(new_frame,text=AppVariables.username)
+        AppVariables.checktab=1
         filemenu.entryconfig(1, state=DISABLED)
         
         
@@ -81,7 +81,7 @@ class createAppGui:
         app.wait_window(top)
         
     def send(self):
-        constant.username=self.myEntryBox.get()
+        AppVariables.username=self.myEntryBox.get()
         self.top.destroy()
 
     

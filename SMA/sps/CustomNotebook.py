@@ -6,6 +6,9 @@ Created on Jun 13, 2017
 
 from tkinter import *
 from tkinter import ttk
+from sps.AppVariables import *
+import sps.AppVariables
+from faulthandler import is_enabled
 
 class CustomNotebook(ttk.Notebook):
     """A ttk Notebook with close buttons on each tab"""
@@ -26,9 +29,14 @@ class CustomNotebook(ttk.Notebook):
         self.bind("<ButtonRelease-1>", self.on_close_release)
 
     def on_close_press(self, event):
+        
         """Called when the button is pressed over the close button"""
 
         element = self.identify(event.x, event.y)
+        
+        if sps.AppVariables.checktab==1:
+            sps.AppVariables.filemenu.entryconfig(1, state=ACTIVE)
+            sps.AppVariables.checktab=0
 
         if "close" in element:
             index = self.index("@%d,%d" % (event.x, event.y))

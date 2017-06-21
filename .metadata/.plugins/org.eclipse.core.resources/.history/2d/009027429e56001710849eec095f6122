@@ -10,17 +10,11 @@ from tkinter import font
 from sps.CustomNotebook import *
 import ttk
 import numbers
-
-
-
-global app
-global logo
-global notebook
-global username
+from faulthandler import disable
 
 
 class createAppGui:
-    
+    name=""
     #Constructor for initalizing GUI
     def __init__(self):
         icon = PhotoImage(file=appLogo)
@@ -38,13 +32,12 @@ class createAppGui:
      
      #Method for creating menubar   
     def createMenuBar(self):
-        menubar = Menu(app)
-        filemenu =Menu(menubar)
         filemenu.add_command(label="New",command=self.createNewTab)
         filemenu.add_command(label="Open", command='')
         filemenu.add_command(label="Save", command='')
         filemenu.add_separator()
         filemenu.add_command(label="Exit", command=app.quit)
+        #filemenu.entryconfig(1, state=DISABLED)
         menubar.add_cascade(label="File", menu=filemenu)
         app.config(menu=menubar)
     
@@ -67,8 +60,12 @@ class createAppGui:
 #         w1.place(x = 400, y = 90)
     
     def createNewTab(self):
-        frame = Frame(notebook)
-        notebook.add(frame, text='new')
+        self.getTabName(app)
+        new_frame=Frame(notebook,background='white')
+        notebook.add(new_frame,text=constant.username)
+        constant.checktab=1
+        filemenu.entryconfig(1, state=DISABLED)
+        
         
         
         
@@ -78,9 +75,12 @@ class createAppGui:
         self.myLabel.pack()
         self.myEntryBox = Entry(top)
         self.myEntryBox.pack()
-        self.mySubmitButton = Button(top, text='Submit', command=lambda: (username=self.myEntryBox.get()))
+        self.mySubmitButton = Button(top, text='Submit', command=self.send)
         self.mySubmitButton.pack()
+        app.wait_window(top)
         
-        
+    def send(self):
+        constant.username=self.myEntryBox.get()
+        self.top.destroy()
 
     
