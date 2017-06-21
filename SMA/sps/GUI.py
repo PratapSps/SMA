@@ -8,10 +8,10 @@ from _ctypes import alignment
 from sps.AppVariables import *
 from tkinter import font
 from sps.CustomNotebook import *
-import ttk
+from tkinter import ttk
 import numbers
 from sps import AppVariables
-from faulthandler import disable
+
 
 
 class createAppGui:
@@ -42,31 +42,24 @@ class createAppGui:
         menubar.add_cascade(label="File", menu=filemenu)
         app.config(menu=menubar)
     
-        
+#create home tab frame        
     def createHomeTab(self,name):
         Home_frame = Frame(notebook,background='white')
         w = Label(Home_frame, image=logo, bg="white", fg="white")
-        w.place(x = 200, y = 100)
+        w.place(x = 500, y = 240)
         w1 = Label(Home_frame, text="SMA", bg="white", fg="black",font=('Tempus Sans ITC', 120, 'bold'))
-        w1.place(x = 400, y = 90)
+        w1.place(x = 700, y = 200)
         notebook.add(Home_frame, text=name)
         
         
-#     def createHomeTab(self):
-#         homeframe = Frame(appNotebook,background='white')   # first page, which would get widgets gridded into it
-#         appNotebook.add(homeframe, text='Home')
-#         w = Label(homeframe, image=logo, bg="white", fg="white")
-#         w.place(x = 200, y = 100)
-#         w1 = Label(homeframe, text="SMA", bg="white", fg="black",font=('Tempus Sans ITC', 120, 'bold'))
-#         w1.place(x = 400, y = 90)
-    
+#create new tab frame with user input
+  
     def createNewTab(self):
         self.getTabName(app)
         new_frame=Frame(notebook,background='white')
         notebook.add(new_frame,text=AppVariables.username)
         AppVariables.checktab=1
         filemenu.entryconfig(1, state=DISABLED)
-        
         
         
         
@@ -84,4 +77,7 @@ class createAppGui:
         AppVariables.username=self.myEntryBox.get()
         self.top.destroy()
 
+
+        
+    
     

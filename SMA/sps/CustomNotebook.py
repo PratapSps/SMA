@@ -8,7 +8,7 @@ from tkinter import *
 from tkinter import ttk
 from sps.AppVariables import *
 import sps.AppVariables
-from faulthandler import is_enabled
+
 
 class CustomNotebook(ttk.Notebook):
     """A ttk Notebook with close buttons on each tab"""

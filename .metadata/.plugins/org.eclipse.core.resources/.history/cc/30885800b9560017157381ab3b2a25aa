@@ -1,0 +1,48 @@
+from tkinter import *
+from tkinter import ttk
+
+root = Tk()
+notebook = ttk.Notebook(root)
+notebook.grid(row=0,column=0,sticky=N+E+W+S)
+frame1 = Frame(notebook)
+notebook.add(frame1, text='Mode A')
+
+
+
+vscrollbar = Scrollbar(orient=VERTICAL)
+vscrollbar.grid(row=0, column=1, sticky=N+S)
+hscrollbar = Scrollbar(orient=HORIZONTAL)
+hscrollbar.grid(row=1, column=0, sticky=E+W)
+
+canvas = Canvas(frame1, yscrollcommand=vscrollbar.set, xscrollcommand=hscrollbar.set,background='white')
+canvas.grid(row=0, column=0, sticky=N+S+E+W)
+w = Label(canvas, image="", bg="white", fg="white")
+w.place(x = 500, y = 240)
+w1 = Label(canvas, text="SMA", bg="white", fg="black",font=('Tempus Sans ITC', 120, 'bold'))
+w1.place(x = 700, y = 200)
+vscrollbar.config(command=canvas.yview)
+hscrollbar.config(command=canvas.xview)
+
+# make the canvas expandable
+root.grid_rowconfigure(0, weight=1)
+root.grid_columnconfigure(0, weight=1)
+
+# create canvas contents
+frame = Frame(canvas)
+frame.rowconfigure(1, weight=1)
+frame.columnconfigure(1, weight=1)
+
+canvas.create_window(0, 0, anchor=NW, window=frame)
+frame.update_idletasks()
+canvas.config(scrollregion=canvas.bbox("all"))
+
+
+def set(self, lo, hi):
+        if float(lo) <= 0.0 and float(hi) >= 1.0:
+            # grid_remove is currently missing from Tkinter!
+            self.tk.call("grid", "remove", self)
+        else:
+            self.grid()
+        Scrollbar.set(self, lo, hi)
+
+root.mainloop()

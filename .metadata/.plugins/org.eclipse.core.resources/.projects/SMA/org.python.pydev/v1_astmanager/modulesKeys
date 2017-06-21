@@ -1,7 +1,9 @@
 MODULES_MANAGER_V2
-sps.AppVariables|C:\Users\pratap\Desktop\SMA\SMA\sps\AppVariables.py
-sps.CustomNotebook|C:\Users\pratap\Desktop\SMA\SMA\sps\CustomNotebook.py
-sps.GUI|C:\Users\pratap\Desktop\SMA\SMA\sps\GUI.py
-sps.MainAppClass|C:\Users\pratap\Desktop\SMA\SMA\sps\MainAppClass.py
-sps.__init__|C:\Users\pratap\Desktop\SMA\SMA\sps\__init__.py
-sps.test|C:\Users\pratap\Desktop\SMA\SMA\sps\test.py
+sps.AppVariables|C:\Users\u130796\Desktop\SMA\SMA\sps\AppVariables.py
+sps.CustomNotebook|C:\Users\u130796\Desktop\SMA\SMA\sps\CustomNotebook.py
+sps.GUI|C:\Users\u130796\Desktop\SMA\SMA\sps\GUI.py
+sps.MainAppClass|C:\Users\u130796\Desktop\SMA\SMA\sps\MainAppClass.py
+sps.__init__|C:\Users\u130796\Desktop\SMA\SMA\sps\__init__.py
+sps.test|C:\Users\u130796\Desktop\SMA\SMA\sps\test.py
+sps.test2|C:\Users\u130796\Desktop\SMA\SMA\sps\test2.py
+sps.test3|C:\Users\u130796\Desktop\SMA\SMA\sps\test3.py
