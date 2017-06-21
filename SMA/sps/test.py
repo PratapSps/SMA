@@ -1,30 +1,27 @@
-import tkinter as tk
+from tkinter import *
 
-class MyDialog:
+class TestMenu:
+    def __init__(self, master):
+        
+        self.master = master
+        self.menubar = Menu(self.master)
 
-    def __init__(self, parent):
-        top = self.top = tk.Toplevel(parent)
-        self.myLabel = tk.Label(top, text='Enter your username below')
-        self.myLabel.pack()
-        self.myEntryBox = tk.Entry(top)
-        self.myEntryBox.pack()
-        self.mySubmitButton = tk.Button(top, text='Submit', command=self.send)
-        self.mySubmitButton.pack()
+        self.cmdmenu = Menu(self.menubar)
+        self.cmdmenu.add_command(label="Undo")
+        self.cmdmenu.entryconfig(1, state=DISABLED)
 
-    def send(self):
-        self.username = self.myEntryBox.get()
-        self.top.destroy()
+        self.unused = Menu(self.menubar)
+        
+        self.menubar.add_cascade(label="Button Command", menu=self.cmdmenu)
 
-def onClick():
-    inputDialog = MyDialog(root)
-    root.wait_window(inputDialog.top)
-    print('Username: ', inputDialog.username)
+        self.top = Toplevel(menu=self.menubar, width=500, relief=RAISED,
+        borderwidth=2)
 
-root = tk.Tk()
-mainLabel = tk.Label(root, text='Example for pop up input box')
-mainLabel.pack()
+def main():
+    root = Tk()
+    root.withdraw()
+    app = TestMenu(root)
+    root.mainloop()
 
-mainButton = tk.Button(root, text='Click me', command=onClick)
-mainButton.pack()
-
-root.mainloop()
+if __name__ == '__main__':
+    main()

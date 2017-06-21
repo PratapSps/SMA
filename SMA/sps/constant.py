@@ -14,6 +14,9 @@ logo = PhotoImage(file=appLogo)
 # appNotebook.grid(row=0,column=0,columnspan=50,rowspan=49,sticky='NESW')
 notebook = CustomNotebook(width=200, height=200)
 notebook.pack(side="top", fill="both", expand=True)
-username='dfgfd'
+username=''
+checktab=0
+menubar = Menu(app)
+filemenu =Menu(menubar)
     
     

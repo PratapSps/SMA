@@ -11,6 +11,7 @@ from sps.CustomNotebook import *
 import ttk
 import numbers
 from sps import constant
+from faulthandler import disable
 
 
 class createAppGui:
@@ -32,13 +33,12 @@ class createAppGui:
      
      #Method for creating menubar   
     def createMenuBar(self):
-        menubar = Menu(app)
-        filemenu =Menu(menubar)
         filemenu.add_command(label="New",command=self.createNewTab)
         filemenu.add_command(label="Open", command='')
         filemenu.add_command(label="Save", command='')
         filemenu.add_separator()
         filemenu.add_command(label="Exit", command=app.quit)
+        #filemenu.entryconfig(1, state=DISABLED)
         menubar.add_cascade(label="File", menu=filemenu)
         app.config(menu=menubar)
     
@@ -62,9 +62,11 @@ class createAppGui:
     
     def createNewTab(self):
         self.getTabName(app)
-        frame = Frame(notebook)
-        notebook.add(frame, text='new')
-        print(constant.username)
+        new_frame=Frame(notebook,background='white')
+        notebook.add(new_frame,text=constant.username)
+        constant.checktab=1
+        filemenu.entryconfig(1, state=DISABLED)
+        
         
         
         

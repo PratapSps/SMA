@@ -1,15 +1,11 @@
-INSTUPsps.GUI
-C:\Users\pratap\Google Drive\Capstone Project\SMA\SMA\sps\GUI.py
-INFOS:&&1|1|2|0&&2|3|2|1&&2|4|2|1&&2|5|2|1&&2|6|2|1&&2|7|2|1&&3|8|2|9&&3|10|2|9&&3|11|2|9&&2|12|2|1
-createNewTab=6
-createAppGui.getTabName=9
-mySubmitButton=11
-myEntryBox=10
-createAppGui=1
-createHomeTab=5
-createMenuBar=4
-sps.GUI=2
-myLabel=8
-getTabName=7
-__init__=3
-send=12
+INSTUPsps.constant
+C:\Users\pratap\Google Drive\Capstone Project\SMA\SMA\sps\constant.py
+INFOS:&&3|1|2|0&&3|3|2|0&&3|4|2|0&&3|5|2|0&&3|6|2|0&&3|7|2|0&&3|8|2|0
+app=1
+sps.constant=2
+appLogo=3
+checktab=8
+logo=5
+appTitle=4
+notebook=6
+username=7

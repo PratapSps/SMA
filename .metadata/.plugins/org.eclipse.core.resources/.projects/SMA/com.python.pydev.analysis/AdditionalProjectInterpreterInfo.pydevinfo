@@ -2,8 +2,8 @@
 -- START DISKCACHE_2
 C:\Users\pratap\Google Drive\Capstone Project\SMA\.metadata\.plugins\org.eclipse.core.resources\.projects\SMA\com.python.pydev.analysis\v2_indexcache
 sps.constant|1497934759368356000|C:\Users\pratap\Google Drive\Capstone Project\SMA\SMA\sps\constant.py
+sps.GUI|1497936026423820000|C:\Users\pratap\Google Drive\Capstone Project\SMA\SMA\sps\GUI.py
 sps.test|1497932290857667000|C:\Users\pratap\Google Drive\Capstone Project\SMA\SMA\sps\test.py
-sps.GUI|1497934730621693000|C:\Users\pratap\Google Drive\Capstone Project\SMA\SMA\sps\GUI.py
 sps.CustomNotebook|1497931063449404000|C:\Users\pratap\Google Drive\Capstone Project\SMA\SMA\sps\CustomNotebook.py
 sps.__init__|1496519814428497000|C:\Users\pratap\Google Drive\Capstone Project\SMA\SMA\sps\__init__.py
 sps.MainAppClass|1497930733770789000|C:\Users\pratap\Google Drive\Capstone Project\SMA\SMA\sps\MainAppClass.py
@@ -27,27 +27,21 @@ sps.MainAppClass|1497930733770789000|C:\Users\pratap\Google Drive\Capstone Proje
 9=MyDialog
 -- END DICTIONARY
 -- START TREE 1
-17
-D|0|
+11
 app|3|appLogo!11@app!11@appTitle!11@
-b_l|0|
 cre|1|createAppGui!17@
 cus|1|CustomNotebook!25@
-fra|0|
-l|0|
 log|1|logo!11@
 mai|2|mainLabel!35@mainButton!35@
-mbo|0|
 myd|1|MyDialog!33@
 not|1|notebook!11@
 onc|1|onClick!34@
 roo|1|root!35@
 sta|1|StartApp!43@
-upd|0|
 use|1|username!11@
 -- END TREE
 -- START TREE 2
-11
+12
 __i|6|__init__!6&26@__initialized!6&27@__init__!7&18@__initialize_custom_style!6&26@__inititialized!8&27@__init__!9&34@
 _ac|3|_active!8&27@_active!10&27@_active!11&27@
 cre|3|createHomeTab!7&18@createNewTab!7&18@createMenuBar!7&18@
@@ -56,6 +50,7 @@ ima|1|images!12&27@
 mye|2|myEntryBox!13&35@myEntryBox!14&19@
 myl|2|myLabel!14&19@myLabel!13&35@
 mys|2|mySubmitButton!13&35@mySubmitButton!14&19@
+nam|1|name!7&19@
 on_|2|on_close_release!6&26@on_close_press!6&26@
 sen|2|send!7&18@send!9&34@
 use|1|username!15&35@
