@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="GitCommitMessageComponent">
+		<list key="C:\Users\u130796\Desktop\SMA\.git">
+			<item value="false"/>
+			<item value="u130796 &lt;u130796@W7LPC0CXA5N.na.nisource.net&gt;"/>
+			<item value="scrollbar&#x0D;&#x0A;&#x0D;&#x0A;Signed-off-by: u130796 &lt;u130796@W7LPC0CXA5N.na.nisource.net&gt;"/>
+			<item value="u130796 &lt;u130796@W7LPC0CXA5N.na.nisource.net&gt;"/>
+			<item value="951141bedfc1dffc27266262b00c1c25dff0a80d"/>
+		</list>
+	</section>
+	<section name="org.eclipse.egit.ui.internal.staging.StagingView">
+		<item value="200,200" key="STAGING_SASH_FORM_WEIGHT"/>
+		<item value="false" key="sortItemState"/>
+		<item value="200,200" key="HORIZONTAL_SASH_FORM_WEIGHT"/>
+	</section>
+</section>
