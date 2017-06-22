@@ -55,7 +55,7 @@ class createAppGui:
         w1.place(x = 700, y = 200)
         
         
-#create new tab frame with user input
+#create new tab frame with user input.
   
     def createNewTab(self):
         self.getTabName(app)
