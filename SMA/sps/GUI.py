@@ -58,12 +58,12 @@ class createAppGui:
 #create new tab frame with user input.
   
     def createNewTab(self):
+        AppVariables.checktab=AppVariables.checktab+1
+        filemenu.entryconfig(1, state=DISABLED)
         self.getTabName(app)
         new_frame=Frame(notebook,background='gray')
         new_frame.pack(fill=BOTH, expand=True)
         notebook.add(new_frame,text=AppVariables.username)
-        AppVariables.checktab=AppVariables.checktab+1
-        filemenu.entryconfig(1, state=DISABLED)
         frame=self.createFramedScrollBar(new_frame)
         frame.config(background='ivory2')
         self.addElementToFrame(frame)
@@ -108,8 +108,20 @@ class createAppGui:
     #create method for adding widget to new frame
     
     def addElementToFrame(self,frame):
-        separator = Frame(frame,height=800, width=1400,bd=1,background= 'gray99',relief=GROOVE)
-        separator.place(x = 180, y = 95)
+        innerFrame = Frame(frame,height=800, width=1400,bd=1,background= 'gray99',relief=GROOVE)
+        innerFrame.place(x = 180, y = 95)
+        FirstName=Label(innerFrame,text='First Name*',bg='white')
+        FirstName.place(x=0,y=0)
+        LastName=Label(innerFrame)
+        Middlename=Label(innerFrame)
+        Country=Label(innerFrame)
+        City=Label(innerFrame)
+        State=Label(innerFrame)
+        Email=Label(innerFrame)
+        Phone=Label(innerFrame)
+        School_Name=Label(innerFrame)
+        
+        
         
         
                 

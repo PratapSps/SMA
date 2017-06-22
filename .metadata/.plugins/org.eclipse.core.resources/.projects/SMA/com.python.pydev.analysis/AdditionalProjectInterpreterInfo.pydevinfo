@@ -1,52 +1,48 @@
 -- VERSION_4
 -- START DISKCACHE_2
 C:\Users\u130796\Desktop\SMA\.metadata\.plugins\org.eclipse.core.resources\.projects\SMA\com.python.pydev.analysis\v2_indexcache
-sps.GUI|1498155905710000000|C:\Users\u130796\Desktop\SMA\SMA\sps\GUI.py
-sps.CustomNotebook|1498152049052454000|C:\Users\u130796\Desktop\SMA\SMA\sps\CustomNotebook.py
+sps.CustomNotebook|1498157915317000000|C:\Users\u130796\Desktop\SMA\SMA\sps\CustomNotebook.py
 sps.__init__|1498063890273488000|C:\Users\u130796\Desktop\SMA\SMA\sps\__init__.py
 sps.AppVariables|1498147430974576000|C:\Users\u130796\Desktop\SMA\SMA\sps\AppVariables.py
 sps.MainAppClass|1498071711889488000|C:\Users\u130796\Desktop\SMA\SMA\sps\MainAppClass.py
 -- END DISKCACHE
 -- START DICTIONARY
-11
-7=CustomNotebook.__init__
-11=createAppGui.getTabName
-8=CustomNotebook.on_close_press
-2=sps.GUI
-9=CustomNotebook.on_close_release
-3=sps.CustomNotebook
+8
+5=CustomNotebook.__init__
+6=CustomNotebook.on_close_press
+7=CustomNotebook.on_close_release
+2=sps.CustomNotebook
 1=sps.AppVariables
-5=CustomNotebook
-10=CustomNotebook.__initialize_custom_style
-4=sps.MainAppClass
-6=createAppGui
+4=CustomNotebook
+8=CustomNotebook.__initialize_custom_style
+3=sps.MainAppClass
 -- END DICTIONARY
 -- START TREE 1
 10
 app|3|appTitle!11@app!11@appLogo!11@
 che|1|checktab!11@
-cre|1|createAppGui!17@
-cus|1|CustomNotebook!25@
+cre|0|
+cus|1|CustomNotebook!17@
 fil|1|filemenu!11@
 log|1|logo!11@
 men|1|menubar!11@
 not|1|notebook!11@
-sta|1|StartApp!35@
+sta|1|StartApp!27@
 use|1|username!11@
 -- END TREE
 -- START TREE 2
 13
-__i|5|__init__!5&26@__initialized!5&27@__init__!6&18@__initialize_custom_style!5&26@__inititialized!7&27@
-_ac|3|_active!7&27@_active!8&27@_active!9&27@
-add|1|addElementToFrame!6&18@
+__i|4|__init__!4&18@__initialized!4&19@__initialize_custom_style!4&18@__inititialized!5&19@
+_ac|3|_active!5&19@_active!6&19@_active!7&19@
+add|0|
 che|0|
-cre|4|createFramedScrollBar!6&18@createHomeTab!6&18@createNewTab!6&18@createMenuBar!6&18@
-get|1|getTabName!6&18@
-ima|1|images!10&27@
-mye|1|myEntryBox!11&19@
-myl|1|myLabel!11&19@
-mys|1|mySubmitButton!11&19@
-nam|1|name!6&19@
-on_|2|on_close_release!5&26@on_close_press!5&26@
-sen|1|send!6&18@
+cre|0|
+get|0|
+ima|1|images!8&19@
+mye|0|
+myl|0|
+mys|0|
+nam|0|
+on_|2|on_close_release!4&18@on_close_press!4&18@
+sen|0|
 -- END TREE

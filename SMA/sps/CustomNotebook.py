@@ -107,16 +107,3 @@ class CustomNotebook(ttk.Notebook):
             ]
         })
     ])
-
-
-# if __name__ == "__main__":
-#     root = Tk()
-# 
-#     notebook = CustomNotebook(width=200, height=200)
-#     notebook.pack(side="top", fill="both", expand=True)
-# 
-#     for color in ("red", "orange", "green", "blue", "violet"):
-#         frame = Frame(notebook, background=color)
-#         notebook.add(frame, text=color)
-# 
-#     root.mainloop()
