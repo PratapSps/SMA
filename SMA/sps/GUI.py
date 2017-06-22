@@ -46,30 +46,36 @@ class createAppGui:
     def createHomeTab(self,name):
         Home_frame = Frame(notebook,background='white')
         Home_frame.pack(fill=BOTH, expand=True)
-        notebook.add(Home_frame, text=name)
+        notebook.add(Home_frame, text=name,image='/images/applogo.png')
         frame=self.createFramedScrollBar(Home_frame)
+        frame.config(background='white')
         w = Label(frame, image=logo, bg="white", fg="white")
         w.place(x = 500, y = 240)
         w1 = Label(frame, text="SMA", bg="white", fg="black",font=('Tempus Sans ITC', 120, 'bold'))
         w1.place(x = 700, y = 200)
         
         
-        
 #create new tab frame with user input
   
     def createNewTab(self):
         self.getTabName(app)
-        new_frame=Frame(notebook,background='white')
+        new_frame=Frame(notebook,background='gray')
         new_frame.pack(fill=BOTH, expand=True)
         notebook.add(new_frame,text=AppVariables.username)
-        AppVariables.checktab=1
+        AppVariables.checktab=AppVariables.checktab+1
         filemenu.entryconfig(1, state=DISABLED)
         frame=self.createFramedScrollBar(new_frame)
+        frame.config(background='ivory2')
+        self.addElementToFrame(frame)
         
         
         
     def getTabName(self,parent):
         top = self.top = Toplevel(parent)
+        icon = PhotoImage(file=appLogo)
+        top.tk.call('wm', 'iconphoto', top._w, icon)
+        top.wm_title("Give Search Name")
+        top.geometry('300x100')
         self.myLabel = Label(top, text='Enter name for your Search: ')
         self.myLabel.pack()
         self.myEntryBox = Entry(top)
@@ -81,7 +87,9 @@ class createAppGui:
     def send(self):
         AppVariables.username=self.myEntryBox.get()
         self.top.destroy()
-        
+     
+     
+     #create scrollbar contained frame   
     def createFramedScrollBar(self,container):
         canvas = Canvas(container,bg='white')
         xscroll = Scrollbar(container, command=canvas.xview,orient = HORIZONTAL)
@@ -92,9 +100,18 @@ class createAppGui:
         xscroll.pack(side=BOTTOM, fill=X,expand = FALSE)
         yscroll.pack(side=RIGHT, fill=Y,expand = FALSE)
         canvas.pack(side=LEFT, fill=BOTH, expand=TRUE)
-        frame = Frame(canvas, background='white',)
+        frame = Frame(canvas)
         canvas.create_window(0,0, anchor =NW, window = frame, width = 2000, height = 1000)
         return frame
+    
+    
+    #create method for adding widget to new frame
+    
+    def addElementToFrame(self,frame):
+        separator = Frame(frame,height=800, width=1400,bd=1,background= 'gray99',relief=GROOVE)
+        separator.place(x = 180, y = 95)
+        
+        
                 
 
 

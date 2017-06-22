@@ -12,10 +12,13 @@ import sps.AppVariables
 
 class CustomNotebook(ttk.Notebook):
     """A ttk Notebook with close buttons on each tab"""
+    
+   
 
     __initialized = False
 
     def __init__(self, *args, **kwargs):
+       
         if not self.__initialized:
             self.__initialize_custom_style()
             self.__inititialized = True
@@ -31,7 +34,7 @@ class CustomNotebook(ttk.Notebook):
     def on_close_press(self, event):
         
         """Called when the button is pressed over the close button"""
-
+        
         element = self.identify(event.x, event.y)
         
         if sps.AppVariables.checktab==1:
@@ -57,6 +60,8 @@ class CustomNotebook(ttk.Notebook):
 
         self.state(["!pressed"])
         self._active = None
+        
+        
 
     def __initialize_custom_style(self):
         style = ttk.Style()
