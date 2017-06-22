@@ -45,11 +45,14 @@ class createAppGui:
 #create home tab frame        
     def createHomeTab(self,name):
         Home_frame = Frame(notebook,background='white')
-        w = Label(Home_frame, image=logo, bg="white", fg="white")
-        w.place(x = 500, y = 240)
-        w1 = Label(Home_frame, text="SMA", bg="white", fg="black",font=('Tempus Sans ITC', 120, 'bold'))
-        w1.place(x = 700, y = 200)
+        Home_frame.pack(fill=BOTH, expand=True)
         notebook.add(Home_frame, text=name)
+        frame=self.createFramedScrollBar(Home_frame)
+        w = Label(frame, image=logo, bg="white", fg="white")
+        w.place(x = 500, y = 240)
+        w1 = Label(frame, text="SMA", bg="white", fg="black",font=('Tempus Sans ITC', 120, 'bold'))
+        w1.place(x = 700, y = 200)
+        
         
         
 #create new tab frame with user input
@@ -57,9 +60,11 @@ class createAppGui:
     def createNewTab(self):
         self.getTabName(app)
         new_frame=Frame(notebook,background='white')
+        new_frame.pack(fill=BOTH, expand=True)
         notebook.add(new_frame,text=AppVariables.username)
         AppVariables.checktab=1
         filemenu.entryconfig(1, state=DISABLED)
+        frame=self.createFramedScrollBar(new_frame)
         
         
         
@@ -76,6 +81,21 @@ class createAppGui:
     def send(self):
         AppVariables.username=self.myEntryBox.get()
         self.top.destroy()
+        
+    def createFramedScrollBar(self,container):
+        canvas = Canvas(container,bg='white')
+        xscroll = Scrollbar(container, command=canvas.xview,orient = HORIZONTAL)
+        yscroll = Scrollbar(container, command=canvas.yview,orient = VERTICAL)
+        canvas.config(xscrollcommand=xscroll.set)
+        canvas.config(yscrollcommand=yscroll.set,)
+        canvas.configure(scrollregion=(0,0,1000,900))
+        xscroll.pack(side=BOTTOM, fill=X,expand = FALSE)
+        yscroll.pack(side=RIGHT, fill=Y,expand = FALSE)
+        canvas.pack(side=LEFT, fill=BOTH, expand=TRUE)
+        frame = Frame(canvas, background='white',)
+        canvas.create_window(0,0, anchor =NW, window = frame, width = 2000, height = 1000)
+        return frame
+                
 
 
         
