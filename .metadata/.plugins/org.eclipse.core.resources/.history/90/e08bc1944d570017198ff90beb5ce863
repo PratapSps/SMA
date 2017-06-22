@@ -1,0 +1,30 @@
+'''
+Created on Jun 22, 2017
+
+@author: u130796
+'''
+from tkinter import *
+from tkinter import ttk
+
+root=Tk()
+
+
+
+scrollbar = Scrollbar(root)
+scrollbar.pack( side = RIGHT, fill=Y )
+
+notebook=ttk.Notebook(root)
+notebook.pack(side="top", fill="both", expand=True)
+
+frame=Frame(notebook,background='white',yscrollcommand = scrollbar.set)
+notebook.add(frame,text='Home')
+
+scrollbar.config(command=frame.yview)
+
+
+
+
+
+root.mainloop()
+
+

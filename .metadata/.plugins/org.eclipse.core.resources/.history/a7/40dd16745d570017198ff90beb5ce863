@@ -1,0 +1,22 @@
+'''
+Created on Jun 22, 2017
+
+@author: u130796
+'''
+from tkinter import *
+from tkinter import ttk
+
+root=Tk()
+
+notebook=ttk.Notebook(root)
+notebook.pack(side="top", fill="both", expand=True)
+
+frame=Frame(notebook,background='white')
+notebook.add(frame,text='Home')
+
+
+
+
+root.mainloop()
+
+

@@ -1,0 +1,32 @@
+'''
+Created on Jun 22, 2017
+
+@author: u130796
+'''
+
+from tkinter import *
+from tkinter import ttk
+
+root = Tk()
+
+notebook = ttk.Notebook(root)
+notebook.pack(fill=BOTH, expand=True)
+notebook.pressed_index = None
+container = Frame(notebook)
+
+container.pack(fill=BOTH, expand=True)
+notebook.add(container, text='Mode A')
+
+canvas = Canvas(container,bg='green')
+scroll = Scrollbar(container, command=canvas.yview)
+canvas.config(yscrollcommand=scroll.set, scrollregion=(0,0,100,1000))
+canvas.pack(side=LEFT, fill=BOTH, expand=True)
+scroll.pack(side=RIGHT, fill=Y)
+
+frame = Frame(canvas, background='white',)
+w1 = Label(frame, text="SMA", bg="red", fg="black",font=('Tempus Sans ITC', 120, 'bold'))
+w1.pack()
+
+canvas.create_window(0,0, anchor =NW, window = frame, width = 500, height = 500)
+
+root.mainloop()

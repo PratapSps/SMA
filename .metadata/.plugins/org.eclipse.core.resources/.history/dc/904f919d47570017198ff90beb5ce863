@@ -1,0 +1,103 @@
+'''
+Created on Jun 22, 2017
+
+@author: u130796
+'''
+from tkinter import *
+from tkinter import ttk
+
+def switchTab():
+    newTab=tabList[1]
+    fieldbook.select(tab_id=newTab)
+
+root = Tk()
+root.geometry('1000x700+1000+40')
+root.resizable(FALSE,FALSE)
+root.rowconfigure(0,weight=1)
+root.columnconfigure(0,weight=1)
+root.title("Electronic Fieldbook")
+
+fieldbook = ttk.Notebook(root)
+f1 = ttk.Frame(fieldbook);
+f2 = ttk.Frame(fieldbook);
+f3 = ttk.Frame(fieldbook);
+f4 = ttk.Frame(fieldbook);
+f5 = ttk.Frame(fieldbook);
+f6 = ttk.Frame(fieldbook);
+f7 = ttk.Frame(fieldbook);
+f8 = ttk.Frame(fieldbook);
+f9 = ttk.Frame(fieldbook);
+fieldbook.add(f1, text="Home")
+fieldbook.add(f2, text="Lexicon")
+fieldbook.add(f3, text="Texts")
+fieldbook.add(f4, text="Examples")
+fieldbook.add(f5, text="Datasets")
+fieldbook.add(f6, text="Concordances")
+fieldbook.add(f7, text="Paradigms")
+fieldbook.add(f8, text="Abbreviations")
+fieldbook.add(f9, text="Index")
+
+##create tabs
+
+homeLabel=ttk.Label(f1, text="Lhome")
+lexiconLabel=ttk.Label(f2, text="Llexicon")
+textsLabel=ttk.Label(f3, text="Ltexts")
+examplesLabel=ttk.Label(f4, text="Lexamples")
+datasetsLabel=ttk.Label(f5, text="Ldatasets")
+concordancesLabel=ttk.Label(f6, text="Lconcordances")
+paradigmsLabel=ttk.Label(f7, text="Lparadigms")
+abbrvLabel=ttk.Label(f8, text="Labbreviations")
+indexLabel=ttk.Label(f9, text="Lindex")
+
+##create home widgets
+lexBox = Listbox(f1, height = 32)
+lexScrl = ttk.Scrollbar(f1, orient=VERTICAL, command=lexBox.yview)
+LexHomeLabel = ttk.Label(f1, text="Lexicon")
+testButton = ttk.Button(f1, text="Test", command=switchTab)
+
+##create Lexicon widgets
+navBox = Listbox(f2, height = 35)
+navScrl = ttk.Scrollbar(f2, orient=VERTICAL, command=navBox.yview)
+
+##create Text widgets
+txtBox = Listbox(f3, height = 35)
+txtScrl = ttk.Scrollbar(f3, orient=VERTICAL, command=txtBox.yview)
+
+##grid widgets
+fieldbook.grid(row=0, column=0, sticky=(N,W,S,E))
+
+## grid home widgets
+LexHomeLabel.grid(row=0,column=0, sticky=(N))
+lexBox.grid(row=1, column=0, sticky=(N,W,S,E))
+for i in range(1,101):
+    lexBox.insert('end', 'Line %d of 100' % i)
+lexScrl.grid(row=1,column=1, sticky=(N,S))
+lexBox['yscrollcommand'] = lexScrl.set
+testButton.grid(column=3, row= 2, sticky=(S,E))
+
+##grid lexicon widgets
+navBox.grid(row=0, column=0, sticky=(N,W,S,E))
+for i in lexBox.get(0, 'end'):
+    navBox.insert('end', i)
+navScrl.grid(row=0,column=1, sticky=(N,S))
+navBox['yscrollcommand'] = navScrl.set
+
+##grid txt widgets
+txtBox.grid(row=0, column=0, sticky=(N,W,S,E))
+for i in range(1,101):
+    txtBox.insert('end', 'Text %d of 100' % i)
+txtScrl.grid(row=0,column=1, sticky=(N,S))
+txtBox['yscrollcommand'] = txtScrl.set
+
+##grid other widgets
+textsLabel.grid(row=0,column=0)
+examplesLabel.grid(row=0,column=0)
+datasetsLabel.grid(row=0,column=0)
+concordancesLabel.grid(row=0,column=0)
+paradigmsLabel.grid(row=0,column=0)
+abbrvLabel.grid(row=0,column=0)
+indexLabel.grid(row=0,column=0)
+
+tabList = fieldbook.tabs()
+
+root.mainloop()
