@@ -7,6 +7,7 @@ from tkinter import *
 from sps.CustomNotebook import *
 
 app=Tk()
+
 appLogo='images/applogo.png'
 appTitle='SMA'
 logo = PhotoImage(file=appLogo)
