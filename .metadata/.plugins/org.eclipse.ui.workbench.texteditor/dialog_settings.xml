@@ -6,16 +6,18 @@
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="tab_home" key="selection"/>
+		<item value="16" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="12"/>
 			<item value="root"/>
 			<item value="Tkinter"/>
 		</list>
 		<list key="replacehistory">
+			<item value="16"/>
 			<item value="tab_home"/>
 			<item value="tkinter"/>
 		</list>

@@ -11,6 +11,7 @@ app=Tk()
 appLogo='images/applogo.png'
 appTitle='SMA'
 logo = PhotoImage(file=appLogo)
+button=PhotoImage(file='Images/button.png')
 # appNotebook = ttk.Notebook(app)
 # appNotebook.grid(row=0,column=0,columnspan=50,rowspan=49,sticky='NESW')
 notebook = CustomNotebook(width=200, height=200)
