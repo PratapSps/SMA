@@ -21,5 +21,18 @@ checktab=0
 menubar = Menu(app)
 filemenu =Menu(menubar)
 
-    
+#Data from the user input
+First_Name_data=""
+Middle_Name_data=""
+Last_Name_data=""
+Country_data=""
+City_data=""
+State_data=""
+Email_data=""
+Phone_data=""
+School_Name_data=""
+
+#Gui Form variables
+
+
     

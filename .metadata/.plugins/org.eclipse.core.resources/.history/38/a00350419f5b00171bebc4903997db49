@@ -1,0 +1,22 @@
+'''
+Created on Jun 27, 2017
+
+@author: Survya pratap singh
+'''
+class backendProcess:
+    
+    def __init__(self):
+        self
+    
+    
+    def initalizeUserInput(self):
+        First_Name=FirstName_Entry.get()
+        Middle_Name=""
+        Last_Name=""
+        Country=""
+        City=""
+        State=""
+        Email=""
+        Phone=""
+        School_Name=""
+    

@@ -1,0 +1,13 @@
+'''
+Created on Jun 27, 2017
+
+@author: Survya pratap singh
+'''
+
+import scrapy
+class backendProcess:
+    
+    def __init__(self):
+        self
+    
+    
