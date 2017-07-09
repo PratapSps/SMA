@@ -34,5 +34,5 @@ School_Name_data=""
 
 #Gui Form variables
 
-
+launch_status=0
     

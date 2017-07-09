@@ -18,24 +18,25 @@ class Animation:
     
     def animate(self):
         #CHECK IF LIST IS EMPTY
-        
-        if len(self.gifBackgroundImages) == 0:
-            #CREATE FILES IN LIST
-            for foldername in os.listdir(self.gifBackgroundDirectory):
-                self.gifBackgroundImages.append(foldername)
-            #ALPHABETICAL ORDER
-            self.gifBackgroundImages.sort(key = lambda x: int(x.split('.')[0].split('-')[1]))
-        
-        if self.atualGifBackgroundImage == len(self.gifBackgroundImages):
-            self.atualGifBackgroundImage = 0
-        
-        self.background["file"] = self.gifBackgroundDirectory + self.gifBackgroundImages[self.atualGifBackgroundImage]
-        self.label1["image"] = self.background
-        self.atualGifBackgroundImage += 1
-        
-            #MILISECONDS\/ PER FRAME
-        app.after(100, lambda: self.animate())
-       
+        if sps.AppVariables.launch_status==0:
+            if len(self.gifBackgroundImages) == 0:
+                #CREATE FILES IN LIST
+                for foldername in os.listdir(self.gifBackgroundDirectory):
+                    self.gifBackgroundImages.append(foldername)
+                #ALPHABETICAL ORDER
+                self.gifBackgroundImages.sort(key = lambda x: int(x.split('.')[0].split('-')[1]))
+            
+            if self.atualGifBackgroundImage == len(self.gifBackgroundImages):
+                self.atualGifBackgroundImage = 0
+            
+            self.background["file"] = self.gifBackgroundDirectory + self.gifBackgroundImages[self.atualGifBackgroundImage]
+            self.label1["image"] = self.background
+            self.atualGifBackgroundImage += 1
+                #MILISECONDS\/ PER FRAME
+            app.after(100, lambda: self.animate())
+        else:
+            self.label1.place_forget()
+           
 
     
     

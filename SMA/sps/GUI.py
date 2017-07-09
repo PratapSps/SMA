@@ -172,12 +172,12 @@ class createAppGui:
         
     def disableButton(self):
         self.launch_button.config(state='disabled')
-        
+        sps.AppVariables.launch_status=0
         
         
     def enableButton(self):
         self.launch_button.config(state='normal')
-        
+        sps.AppVariables.launch_status=1
                 
 
 
