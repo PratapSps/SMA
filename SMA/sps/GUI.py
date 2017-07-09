@@ -11,11 +11,14 @@ from sps.CustomNotebook import *
 from tkinter import ttk
 import numbers
 from sps import AppVariables
+from sps.Animation import Animation
 
 
 
 class createAppGui:
     name=""
+    innerFrame=""
+    launch_button=""
     #Constructor for initalizing GUI
     def __init__(self):
         icon = PhotoImage(file=appLogo)
@@ -164,9 +167,16 @@ class createAppGui:
         sps.AppVariables.Phone_data=self.Phone_Entry.get()
         sps.AppVariables.School_Name_data=self.SchoolName_Entry.get()
         print(sps.AppVariables.First_Name_data)
+        Animation(self,self.innerFrame,500,210) # show loading gif
+        self.disableButton()
+        
+    def disableButton(self):
+        self.launch_button.config(state='disabled')
         
         
         
+    def enableButton(self):
+        self.launch_button.config(state='normal')
         
                 
 
