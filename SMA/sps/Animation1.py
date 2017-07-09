@@ -1,11 +1,20 @@
+'''
+Created on Jul 9, 2017
+
+@author: Survya Pratap Singh
+Wright State University
+UID: U00803205
+email: singh.survya@gmail.com
+website: https://survya.com
+'''
 from tkinter import *
 import os
 from sps.AppVariables import *
 from sps import AppVariables
 
 
-class Animation:
-    gifBackgroundDirectory="gif/"
+class Animation1:
+    gifBackgroundDirectory="gif2/"
     def __init__(self,Frame,innerframe,x_axis,y_axis):
         self.gifBackgroundImages = list()
         self.atualGifBackgroundImage = 0

@@ -12,6 +12,7 @@ from tkinter import ttk
 import numbers
 from sps import AppVariables
 from sps.Animation import Animation
+from sps.Animation1 import Animation1
 
 
 
@@ -167,7 +168,8 @@ class createAppGui:
         sps.AppVariables.Phone_data=self.Phone_Entry.get()
         sps.AppVariables.School_Name_data=self.SchoolName_Entry.get()
         print(sps.AppVariables.First_Name_data)
-        Animation(self,self.innerFrame,500,210) # show loading gif
+        Animation(self,self.innerFrame,500,210)
+        Animation1(self,self.innerFrame,150,550) # show loading gif
         self.disableButton()
         
     def disableButton(self):
