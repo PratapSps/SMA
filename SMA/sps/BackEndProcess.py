@@ -4,6 +4,8 @@ Created on Jul 9, 2017
 @author: pratap
 '''
 from sps import AppVariables
+import requests
+from bs4 import BeautifulSoup
 
 class BackEndProcess():
     '''
@@ -74,6 +76,41 @@ class BackEndProcess():
           
         if url6 != "":
           UniqueSearchURl.append(url6)  
+        
+    #find unique link from each url that is being search in google
+    def findUniqueGoogleSearch(self,searchUrl):
+        count=0
+        for url in range(len(searchUrl)):
+            if len(searchUrl)==1:
+                self.googleParser(url)
+            else:
+               if count==0:
+                   continue
+               else:
+                   self.googleParser(url) 
+            count+=1
+                
+            
+        
+        
+    #crawl google search page
+    def googleParser(self,url):
+        r = requests.get(url,headers={"User-Agent":"Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.27 Safari/537.17"})
+        soup = BeautifulSoup(r.text, "html.parser")
+        findG=soup.find_all('div', {'class':"rc"})
+        for div in findG:
+            print(div.find('h3', attrs={'class': 'r'}).text)
+            print(div.find('cite').text)
+            print(div.find('span',attrs={'class':"st"}).text)
+                
+        
+        
+    
+    #Search for user first and last name in the headera and links
+    def searchContentGoogleSearch(self,header,data):
+        
+        
+        
         
         
         
