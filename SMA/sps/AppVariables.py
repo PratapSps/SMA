@@ -31,8 +31,20 @@ State_data=""
 Email_data=""
 Phone_data=""
 School_Name_data=""
+launch_status=0
+
 
 #Gui Form variables
+FirstLast=""
+FirstMiddleLast=""
+FirstLastCoun=""
+FirstLastState=""
+FirstLastCity=""
+FirstLastSchool=""
 
-launch_status=0
+#URL link
+googleBaseUrl="https://www.google.com/search?q="
+
+
+
     

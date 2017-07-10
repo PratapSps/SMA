@@ -13,6 +13,7 @@ import numbers
 from sps import AppVariables
 from sps.Animation import Animation
 from sps.Animation1 import Animation1
+from sps.BackEndProcess import BackEndProcess
 
 
 
@@ -74,7 +75,7 @@ class createAppGui:
         self.addElementToFrame(frame)
         
         
-        
+    #get the tab name   
     def getTabName(self,parent):
         top = self.top = Toplevel(parent)
         icon = PhotoImage(file=appLogo)
@@ -156,8 +157,9 @@ class createAppGui:
         
         
         
-    
+    #fetch data from form
     def initalizeDataInput(self,*args):
+        sps.AppVariables.launch_status=0
         sps.AppVariables.First_Name_data=self.FirstName_Entry.get()
         sps.AppVariables.Middle_Name_data=self.MiddleName_Entry.get()
         sps.AppVariables.Last_Name_data=self.LastName_Entry.get()
@@ -171,12 +173,15 @@ class createAppGui:
         Animation(self,self.innerFrame,500,210)
         Animation1(self,self.innerFrame,150,550) # show loading gif
         self.disableButton()
-        
+        BackEndProcess.googleUrl(self)
+        self.enableButton()
+    
+    #disable form button   
     def disableButton(self):
         self.launch_button.config(state='disabled')
-        sps.AppVariables.launch_status=0
         
         
+    #enable form button  
     def enableButton(self):
         self.launch_button.config(state='normal')
         sps.AppVariables.launch_status=1
