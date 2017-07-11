@@ -45,6 +45,23 @@ FirstLastSchool=""
 #URL link
 googleBaseUrl="https://www.google.com/search?q="
 
+mid_Link_dict={} #dictionary for storing linked searched by google
+low_Link_dict={} #dictionary for storing linked searched by google
+high_Link_dict={}
+
+#Variables for looking into googlesearched link
+data_FL=""
+data_FLM=""
+data_LF=""
+data_F_L=""
+data_L_F=""
+data_F_M=""
+data_M_F=""
+data_L_M=""
+data_M_L=""
+
+
+
 
 
     

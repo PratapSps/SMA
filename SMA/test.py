@@ -1,12 +1,6 @@
-import requests
-from bs4 import BeautifulSoup
+#!/usr/bin/python
 
-goog_search = "https://www.google.com/search?q=sayali+sheode+linkedin"
+str1 = "this is string example....wowsayali sayali sheode sheode saya!!! sayali sheode";
+str2 = "sayali sheode";
 
-
-r = requests.get(goog_search)
-
-soup = BeautifulSoup(r.text, "lxml")
-name=soup.find('h3', attrs={'class': 'r'})
-name_soup=BeautifulSoup(name.text,"lxml")
-print(name_soup)
+print (str1.find(str2))

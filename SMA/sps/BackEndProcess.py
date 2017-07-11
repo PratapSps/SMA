@@ -123,12 +123,30 @@ class BackEndProcess():
         
                  
         
-        
-        
     
-    #Search for user first and last name in the headera and links
-    def searchContentGoogleSearch(self,header,data):
-        print()
+    #Search for user first and last name in the header and links
+    def NormalizeGoogleSearchedURL(self,header,data,key):
+        '''
+        
+        '''
+        
+        
+    def initalizedSearchData(self):
+        AppVariables.data_FL=AppVariables.First_Name_data+" "+AppVariables.Last_Name_data
+        if AppVariables.Middle_Name_data !="":
+            AppVariables.data_FLM=AppVariables.First_Name_data+" "+AppVariables.Middle_Name_data+" "+AppVariables.Last_Name_data
+            AppVariables.data_F_M=AppVariables.First_Name_data+"."+AppVariables.Middle_Name_data
+            AppVariables.data_M_F=AppVariables.Middle_Name_data+"."+AppVariables.First_Name_data
+            AppVariables.data_L_M=AppVariables.Last_Name_data+"."+AppVariables.Middle_Name_data
+            AppVariables.data_M_L=AppVariables.Middle_Name_data+"."+AppVariables.Last_Name_data
+                        
+        AppVariables.data_LF=AppVariables.Last_Name_data+" "+AppVariables.First_Name_data
+        AppVariables.data_F_L=AppVariables.First_Name_data+"."+AppVariables.Last_Name_data
+        AppVariables.data_L_F=AppVariables.Last_Name_data+"."+AppVariables.First_Name_data
+        
+        
+        
+        
         
         
         
