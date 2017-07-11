@@ -1,11 +1,14 @@
 '''
 Created on Jul 9, 2017
 
-@author: pratap
+@author: Survya pratap singh
 '''
 from sps import AppVariables
 import requests
 from bs4 import BeautifulSoup
+from sps.createAppGui import *
+from sps.AppVariables import app
+
 
 class BackEndProcess():
     '''
@@ -16,6 +19,8 @@ class BackEndProcess():
         '''
         Constructor
         '''
+        
+    
     
     def googleUrl(self):
         '''
@@ -77,38 +82,53 @@ class BackEndProcess():
         if url6 != "":
           UniqueSearchURl.append(url6)  
         
+        BackEndProcess().findUniqueGoogleSearch(UniqueSearchURl)
+#         print (UniqueSearchURl)
+#         
     #find unique link from each url that is being search in google
     def findUniqueGoogleSearch(self,searchUrl):
+#         print (searchUrl)
         count=0
-        for url in range(len(searchUrl)):
+        for url in searchUrl:
+            
             if len(searchUrl)==1:
                 self.googleParser(url)
+#                 print (url)
             else:
                if count==0:
+                   count+=1
                    continue
                else:
-                   self.googleParser(url) 
+                    self.googleParser(url) 
+#                     print (url)
             count+=1
-                
-            
+        
         
         
     #crawl google search page
     def googleParser(self,url):
+#         print(url)
+        app.update()
         r = requests.get(url,headers={"User-Agent":"Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.27 Safari/537.17"})
+        sps.createAppGui.Animation(self,sps.createAppGui.innerFrame,500,210)
+        app.update()
+         
         soup = BeautifulSoup(r.text, "html.parser")
         findG=soup.find_all('div', {'class':"rc"})
         for div in findG:
-            print(div.find('h3', attrs={'class': 'r'}).text)
-            print(div.find('cite').text)
-            print(div.find('span',attrs={'class':"st"}).text)
-                
+            print((div.find('h3', attrs={'class': 'r'}).text).encode(encoding='UTF-8',errors='strict'))
+            print((div.find('cite').text).encode(encoding='UTF-8',errors='strict'))
+            print((div.find('span',attrs={'class':"st"}).text).encode(encoding='UTF-8',errors='strict'))
+        app.update()
+        
+                 
+        
         
         
     
     #Search for user first and last name in the headera and links
     def searchContentGoogleSearch(self,header,data):
-        
+        print()
         
         
         

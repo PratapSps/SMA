@@ -14,10 +14,12 @@ from sps import AppVariables
 from sps.Animation import Animation
 from sps.Animation1 import Animation1
 from sps.BackEndProcess import BackEndProcess
+import requests
+from bs4 import BeautifulSoup
 
-
-
+innerFrame=""
 class createAppGui:
+    global innerFrame
     name=""
     innerFrame=""
     launch_button=""
@@ -160,6 +162,7 @@ class createAppGui:
     #fetch data from form
     def initalizeDataInput(self,*args):
         sps.AppVariables.launch_status=0
+        self.disableButton()
         sps.AppVariables.First_Name_data=self.FirstName_Entry.get()
         sps.AppVariables.Middle_Name_data=self.MiddleName_Entry.get()
         sps.AppVariables.Last_Name_data=self.LastName_Entry.get()
@@ -169,11 +172,10 @@ class createAppGui:
         sps.AppVariables.Email_data=self.Email_Entry.get()
         sps.AppVariables.Phone_data=self.Phone_Entry.get()
         sps.AppVariables.School_Name_data=self.SchoolName_Entry.get()
-        print(sps.AppVariables.First_Name_data)
-        Animation(self,self.innerFrame,500,210)
-        Animation1(self,self.innerFrame,150,550) # show loading gif
-        self.disableButton()
-        BackEndProcess.googleUrl(self)
+#         print(sps.AppVariables.First_Name_data)
+        Animation(self,innerFrame,500,210)
+        Animation1(self,innerFrame,150,550) # show loading gif
+        BackEndProcess().googleUrl()
         self.enableButton()
     
     #disable form button   
