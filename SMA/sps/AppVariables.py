@@ -41,6 +41,12 @@ FirstLastCoun=""
 FirstLastState=""
 FirstLastCity=""
 FirstLastSchool=""
+FirstMLastCoun=""
+FirstMLastState=""
+FirstMLastCity=""
+FirstMLastSchool=""
+UserEmailID=""
+
 
 #URL link
 googleBaseUrl="https://www.google.com/search?q="

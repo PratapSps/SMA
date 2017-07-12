@@ -27,21 +27,32 @@ class BackEndProcess():
         Method which search google.com based on input provided by the user
         It creates dynamic link based on user input.
         '''
-        AppVariables.FirstLast=AppVariables.First_Name_data +"+" +AppVariables.Last_Name_data
+        AppVariables.FirstLast='"'+AppVariables.First_Name_data +'+' +AppVariables.Last_Name_data+'"&nfpr=1'
         if AppVariables.Middle_Name_data != "" :
-            AppVariables.FirstMiddleLast=AppVariables.First_Name_data+"+"+AppVariables.Middle_Name_data+"+"+AppVariables.Last_Name_data
-        
+            AppVariables.FirstMiddleLast='"'+AppVariables.First_Name_data+'+'+AppVariables.Middle_Name_data+'+'+AppVariables.Last_Name_data+'"&nfpr=1'
+            
         if AppVariables.Country_data != "" :
-            AppVariables.FirstLastCoun=AppVariables.FirstLast+"+"+AppVariables.Country_data
+            AppVariables.FirstLastCoun='"'+AppVariables.First_Name_data +'+' +AppVariables.Last_Name_data+'"+'+AppVariables.Country_data+'"&nfpr=1'
+            if AppVariables.Middle_Name_data != "" :
+               AppVariables.FirstMLastCoun='"'+AppVariables.First_Name_data +'+'+AppVariables.Middle_Name_data+'+'+AppVariables.Last_Name_data+'"+'+AppVariables.Country_data+'"&nfpr=1' 
         
         if AppVariables.State_data != "" :
-            AppVariables.FirstLastState=AppVariables.FirstLast+"+"+AppVariables.State_data
+            AppVariables.FirstLastState='"'+AppVariables.First_Name_data +'+' +AppVariables.Last_Name_data+'"+'+AppVariables.State_data+'"&nfpr=1'
+            if AppVariables.Middle_Name_data != "" :
+                AppVariables.FirstMLastState='"'+AppVariables.First_Name_data +'+' +AppVariables.Middle_Name_data+'+'+AppVariables.Last_Name_data+'"+'+AppVariables.State_data+'"&nfpr=1'
         
         if AppVariables.City_data != "" :
-            AppVariables.FirstLastCity=AppVariables.FirstLast+"+"+AppVariables.City_data
+            AppVariables.FirstLastCity='"'+AppVariables.First_Name_data +'+' +AppVariables.Last_Name_data+'"+'+AppVariables.City_data+'"&nfpr=1'
+            if AppVariables.Middle_Name_data != "" :
+                AppVariables.FirstMLastCity='"'+AppVariables.First_Name_data +'+' +AppVariables.Middle_Name_data+'+'+AppVariables.Last_Name_data+'"+'+AppVariables.City_data+'"&nfpr=1'
             
         if AppVariables.School_Name_data != "" :
-            AppVariables.FirstLastSchool=AppVariables.FirstLast+"+"+AppVariables.School_Name_data
+            AppVariables.FirstLastSchool='"'+AppVariables.First_Name_data +'+' +AppVariables.Last_Name_data+'"+'+AppVariables.School_Name_data+'"&nfpr=1'
+            if AppVariables.Middle_Name_data != "" :
+                AppVariables.FirstMLastSchool='"'+AppVariables.First_Name_data +'+'+AppVariables.Middle_Name_data+'+' +AppVariables.Last_Name_data+'"+'+AppVariables.School_Name_data+'"&nfpr=1'
+        
+        if AppVariables.Email_data != "" :
+            AppVariables.UserEmailID='"'+AppVariables.Email_data+'"'+'&nfpr=1'
         
         UniqueSearchURl=[]
         url1=""
@@ -50,9 +61,24 @@ class BackEndProcess():
         url4=""
         url5=""
         url6=""
+        url7=""
+        url8=""
+        url9=""
+        url10=""
+        url11=""
+        
+        
         url1=AppVariables.googleBaseUrl+AppVariables.FirstLast
         if AppVariables.FirstMiddleLast!="":
             url2=AppVariables.googleBaseUrl+AppVariables.FirstMiddleLast
+            if AppVariables.googleBaseUrl+AppVariables.FirstMLastCoun != AppVariables.googleBaseUrl+"" :
+                url7=AppVariables.googleBaseUrl+AppVariables.FirstMLastCoun
+            if AppVariables.googleBaseUrl+AppVariables.FirstMLastState != AppVariables.googleBaseUrl+"" :
+                url8=AppVariables.googleBaseUrl+AppVariables.FirstMLastState
+            if AppVariables.googleBaseUrl+AppVariables.FirstMLastCity != AppVariables.googleBaseUrl+"" :
+                url9=AppVariables.googleBaseUrl+AppVariables.FirstMLastCity
+            if AppVariables.googleBaseUrl+AppVariables.FirstMLastSchool != AppVariables.googleBaseUrl+"" :
+                url10=AppVariables.googleBaseUrl+AppVariables.FirstMLastSchool
             
         if AppVariables.FirstLastCoun!="":
             url3=AppVariables.googleBaseUrl+AppVariables.FirstLastCoun  
@@ -65,6 +91,9 @@ class BackEndProcess():
 
         if AppVariables.FirstLastSchool!="":
             url6=AppVariables.googleBaseUrl+AppVariables.FirstLastSchool
+
+        if AppVariables.UserEmailID !="":
+            url11=AppVariables.googleBaseUrl+AppVariables.UserEmailID
         
         UniqueSearchURl.append(url1)
         if url2 != "":
@@ -82,6 +111,21 @@ class BackEndProcess():
         if url6 != "":
           UniqueSearchURl.append(url6)  
         
+        if url7 != "":
+          UniqueSearchURl.append(url7)
+        
+        if url8 != "":
+          UniqueSearchURl.append(url8)
+          
+        if url9 != "":
+          UniqueSearchURl.append(url9)
+        
+        if url10 != "":
+          UniqueSearchURl.append(url10)
+        
+        if url11 != "":
+          UniqueSearchURl.append(url11)
+        
         BackEndProcess().findUniqueGoogleSearch(UniqueSearchURl)
 #         print (UniqueSearchURl)
 #         
@@ -92,6 +136,7 @@ class BackEndProcess():
         for url in searchUrl:
             
             if len(searchUrl)==1:
+                print ('####################################'+url+'#####################################')
                 self.googleParser(url)
 #                 print (url)
             else:
@@ -99,10 +144,11 @@ class BackEndProcess():
                    count+=1
                    continue
                else:
-                    self.googleParser(url) 
+                   print ('####################################'+url+'#####################################')
+                   self.googleParser(url) 
 #                     print (url)
             count+=1
-        
+          
         
         
     #crawl google search page
