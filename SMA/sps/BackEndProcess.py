@@ -8,6 +8,7 @@ import requests
 from bs4 import BeautifulSoup
 from sps.createAppGui import *
 from sps.AppVariables import app
+import re
 
 
 class BackEndProcess():
@@ -20,36 +21,41 @@ class BackEndProcess():
         Constructor
         '''
         
-    
+    def clearAllList(self):
+        AppVariables.phone_numbers=[]
+        AppVariables.email_id=[]
+        AppVariables.userAddress=[]
     
     def googleUrl(self):
         '''
         Method which search google.com based on input provided by the user
         It creates dynamic link based on user input.
         '''
-        AppVariables.FirstLast='"'+AppVariables.First_Name_data +'+' +AppVariables.Last_Name_data+'"&nfpr=1'
+        self.clearAllList()
+        
+        AppVariables.FirstLast='"'+AppVariables.First_Name_data +'+' +AppVariables.Last_Name_data+'"'+'&nfpr=1'
         if AppVariables.Middle_Name_data != "" :
-            AppVariables.FirstMiddleLast='"'+AppVariables.First_Name_data+'+'+AppVariables.Middle_Name_data+'+'+AppVariables.Last_Name_data+'"&nfpr=1'
+            AppVariables.FirstMiddleLast='"'+AppVariables.First_Name_data+'+'+AppVariables.Middle_Name_data+'+'+AppVariables.Last_Name_data+'"'+'&nfpr=1'
             
         if AppVariables.Country_data != "" :
-            AppVariables.FirstLastCoun='"'+AppVariables.First_Name_data +'+' +AppVariables.Last_Name_data+'"+'+AppVariables.Country_data+'"&nfpr=1'
+            AppVariables.FirstLastCoun='"'+AppVariables.First_Name_data +'+' +AppVariables.Last_Name_data+'"'+'%20'+AppVariables.Country_data+'&nfpr=1'
             if AppVariables.Middle_Name_data != "" :
-               AppVariables.FirstMLastCoun='"'+AppVariables.First_Name_data +'+'+AppVariables.Middle_Name_data+'+'+AppVariables.Last_Name_data+'"+'+AppVariables.Country_data+'"&nfpr=1' 
+               AppVariables.FirstMLastCoun='"'+AppVariables.First_Name_data +'+'+AppVariables.Middle_Name_data+'+'+AppVariables.Last_Name_data+'"'+'%20'+AppVariables.Country_data+'&nfpr=1' 
         
         if AppVariables.State_data != "" :
-            AppVariables.FirstLastState='"'+AppVariables.First_Name_data +'+' +AppVariables.Last_Name_data+'"+'+AppVariables.State_data+'"&nfpr=1'
+            AppVariables.FirstLastState='"'+AppVariables.First_Name_data +'+' +AppVariables.Last_Name_data+'"'+'%20'+AppVariables.State_data+'&nfpr=1'
             if AppVariables.Middle_Name_data != "" :
-                AppVariables.FirstMLastState='"'+AppVariables.First_Name_data +'+' +AppVariables.Middle_Name_data+'+'+AppVariables.Last_Name_data+'"+'+AppVariables.State_data+'"&nfpr=1'
+                AppVariables.FirstMLastState='"'+AppVariables.First_Name_data +'+' +AppVariables.Middle_Name_data+'+'+AppVariables.Last_Name_data+'"'+'%20'+AppVariables.State_data+'&nfpr=1'
         
         if AppVariables.City_data != "" :
-            AppVariables.FirstLastCity='"'+AppVariables.First_Name_data +'+' +AppVariables.Last_Name_data+'"+'+AppVariables.City_data+'"&nfpr=1'
+            AppVariables.FirstLastCity='"'+AppVariables.First_Name_data +'+' +AppVariables.Last_Name_data+'"'+'%20'+AppVariables.City_data+'&nfpr=1'
             if AppVariables.Middle_Name_data != "" :
-                AppVariables.FirstMLastCity='"'+AppVariables.First_Name_data +'+' +AppVariables.Middle_Name_data+'+'+AppVariables.Last_Name_data+'"+'+AppVariables.City_data+'"&nfpr=1'
+                AppVariables.FirstMLastCity='"'+AppVariables.First_Name_data +'+' +AppVariables.Middle_Name_data+'+'+AppVariables.Last_Name_data+'"'+'%20'+AppVariables.City_data+'&nfpr=1'
             
         if AppVariables.School_Name_data != "" :
-            AppVariables.FirstLastSchool='"'+AppVariables.First_Name_data +'+' +AppVariables.Last_Name_data+'"+'+AppVariables.School_Name_data+'"&nfpr=1'
+            AppVariables.FirstLastSchool='"'+AppVariables.First_Name_data +'+' +AppVariables.Last_Name_data+'"'+'%20'+AppVariables.School_Name_data+'&nfpr=1'
             if AppVariables.Middle_Name_data != "" :
-                AppVariables.FirstMLastSchool='"'+AppVariables.First_Name_data +'+'+AppVariables.Middle_Name_data+'+' +AppVariables.Last_Name_data+'"+'+AppVariables.School_Name_data+'"&nfpr=1'
+                AppVariables.FirstMLastSchool='"'+AppVariables.First_Name_data +'+'+AppVariables.Middle_Name_data+'+' +AppVariables.Last_Name_data+'"'+'%20'+AppVariables.School_Name_data+'&nfpr=1'
         
         if AppVariables.Email_data != "" :
             AppVariables.UserEmailID='"'+AppVariables.Email_data+'"'+'&nfpr=1'
@@ -128,6 +134,9 @@ class BackEndProcess():
         
         BackEndProcess().findUniqueGoogleSearch(UniqueSearchURl)
 #         print (UniqueSearchURl)
+        print(AppVariables.phone_numbers)
+        print(AppVariables.email_id)
+        print(AppVariables.userAddress)
 #         
     #find unique link from each url that is being search in google
     def findUniqueGoogleSearch(self,searchUrl):
@@ -156,27 +165,70 @@ class BackEndProcess():
 #         print(url)
         app.update()
         r = requests.get(url,headers={"User-Agent":"Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.27 Safari/537.17"})
-        sps.createAppGui.Animation(self,sps.createAppGui.innerFrame,500,210)
+#         sps.createAppGui.Animation(self,sps.createAppGui.innerFrame,500,210)
         app.update()
          
         soup = BeautifulSoup(r.text, "html.parser")
         findG=soup.find_all('div', {'class':"rc"})
         for div in findG:
-            print((div.find('h3', attrs={'class': 'r'}).text).encode(encoding='UTF-8',errors='strict'))
-            print((div.find('cite').text).encode(encoding='UTF-8',errors='strict'))
-            print((div.find('span',attrs={'class':"st"}).text).encode(encoding='UTF-8',errors='strict'))
+            title=((div.find('h3', attrs={'class': 'r'}).text).encode(encoding='UTF-8',errors='strict'))
+            print(title)
+            key=((div.find('cite').text).encode(encoding='UTF-8',errors='strict'))
+            print(key)
+            data=((div.find('span',attrs={'class':"st"}).text).encode(encoding='UTF-8',errors='strict'))
+            print(data)
+            self.ParseFirstHandInfo(key,title,data.decode("utf-8"))
         app.update()
         
                  
         
     
     #Search for user first and last name in the header and links
-    def NormalizeGoogleSearchedURL(self,header,data,key):
+    def ParseFirstHandInfo(self,key,title,urlData):
         '''
-        
+        Method which search the content for email,phone and address and decide the criticality of links found in google search
         '''
+        self.ParsePhoneNum(urlData)
+        self.ParseEmail(urlData)
+        self.ParseAddress(urlData)
+        
+    
+    
+    #parse phone number from the link
+    def ParsePhoneNum(self,data):
+        phoneRegrex=re.compile(r'(\d{3}[-\.\s]??\d{3}[-\.\s]??\d{4}|\(\d{3}\)\s*\d{3}[-\.\s]??\d{4}|\d{3}[-\.\s]??\d{4})')
+        result = re.search(phoneRegrex, data)
+        if result:
+            AppVariables.phone_numbers.append(result.group(0))
+            return True
+        else:
+            return False
+    
+    #parse email id from the link
+    def ParseEmail(self,data):
+        emailRegex = re.compile(r"[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}", re.IGNORECASE)
+        result = re.search(emailRegex, data)
+        if result:
+            AppVariables.email_id.append(result.group(0))
+            return True
+        else:
+            return False
+        
+    #parse address from the link
+    def ParseAddress(self,data):
+        addressRegex = re.compile(r'(\d{1,10}( \w+){1,10}( ( \w+){1,10})?( \w+){1,10}[,](( \w+){1,10}(,)? [A-Z]{2}( [0-9]{5})?)?)', re.IGNORECASE)
+        result = re.search(addressRegex, data)
+        if result:
+            AppVariables.userAddress.append(result.group(0))
+            return True
+        else:
+            return False
         
         
+        
+        
+    
+      
     def initalizedSearchData(self):
         AppVariables.data_FL=AppVariables.First_Name_data+" "+AppVariables.Last_Name_data
         if AppVariables.Middle_Name_data !="":

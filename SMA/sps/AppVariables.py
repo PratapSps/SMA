@@ -55,6 +55,14 @@ mid_Link_dict={} #dictionary for storing linked searched by google
 low_Link_dict={} #dictionary for storing linked searched by google
 high_Link_dict={}
 
+#store found phone, email and address information in the list
+phone_numbers=[]
+email_id=[]
+userAddress=[]
+
+#Data to search for social media websites
+SocialMediaList=["GitHub","LinkedIn","Facebook","Twitter","Instagram photos and videos","Pinterest"]
+
 #Variables for looking into googlesearched link
 data_FL=""
 data_FLM=""
