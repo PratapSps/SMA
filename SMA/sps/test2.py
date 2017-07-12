@@ -9,12 +9,18 @@ website: https://survya.com
 '''
 import re
 
-data="Survya Pratap Singh. 68 7th  OH 43201. Mob: 9375816431 | E-mail: singh.survya.sogeti@gmail.com.in Website:\xc2\xa0..."
-
-regular_expression = re.compile(r'[0-9]{1,4} (\w){1,20} [0-9]{5}', re.IGNORECASE)
-result = re.search(regular_expression, data)
-if result:
-    print(result)
+# data=" Survya Pratap 252Singh 68 7th  OH 43201. Mob: 9375816431 | E-mail: singh.survya .sogeti@gmail.com.in Website:\xc2\xa0..."
+# a="Survya Pratap"
+# b="pratap.singh"
+# c="sdfsdf"
+# regrex=a+'|'+b+ \
+#     c
+# 
+# 
+# regular_expression = re.compile(regrex,re.IGNORECASE)
+# result = re.search(regular_expression, data)
+# if result:
+#     print(result)
 
 # regular_expression = re.compile(r"\(?"  # open parenthesis
 #                                         r"(\d{3})?"  # area code
@@ -35,3 +41,9 @@ if result:
 #     print(result.group(0))
 # # result1 = result1.groups()
 # # result1 = "-".join(result1)
+
+dict={2:'sdfds'}
+dict.update({2:'uiriwerwr'})
+dict.update({3:'sdfhga'})
+
+print (dict)

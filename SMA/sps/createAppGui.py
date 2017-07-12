@@ -175,7 +175,7 @@ class createAppGui:
 #         print(sps.AppVariables.First_Name_data)
         Animation(self,innerFrame,500,210)
         Animation1(self,innerFrame,150,550) # show loading gif
-        BackEndProcess().googleUrl()
+        BackEndProcess().clearAllList()
         self.enableButton()
     
     #disable form button   

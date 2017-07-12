@@ -20,18 +20,33 @@ class BackEndProcess():
         '''
         Constructor
         '''
-        
+    #clear all the stored data and begin new search  
     def clearAllList(self):
-        AppVariables.phone_numbers=[]
-        AppVariables.email_id=[]
-        AppVariables.userAddress=[]
+        sps.AppVariables.phone_numbers={}
+        sps.AppVariables.email_id={}
+        sps.AppVariables.userAddress={}
+        sps.AppVariables.mid_Link_dict={}
+        sps.AppVariables.high_Link_dict={}
+        sps.AppVariables.low_Link_dict={}
+        
+        #important method which calls all the method.
+        self.googleUrl() 
+        
+        print(AppVariables.phone_numbers)
+        print(AppVariables.email_id)
+        print(AppVariables.userAddress)
+        print(sps.AppVariables.high_Link_dict)
+        print(sps.AppVariables.mid_Link_dict)
+        print(sps.AppVariables.low_Link_dict)
+        
+        
     
     def googleUrl(self):
         '''
         Method which search google.com based on input provided by the user
         It creates dynamic link based on user input.
         '''
-        self.clearAllList()
+        
         
         AppVariables.FirstLast='"'+AppVariables.First_Name_data +'+' +AppVariables.Last_Name_data+'"'+'&nfpr=1'
         if AppVariables.Middle_Name_data != "" :
@@ -134,9 +149,7 @@ class BackEndProcess():
         
         BackEndProcess().findUniqueGoogleSearch(UniqueSearchURl)
 #         print (UniqueSearchURl)
-        print(AppVariables.phone_numbers)
-        print(AppVariables.email_id)
-        print(AppVariables.userAddress)
+       
 #         
     #find unique link from each url that is being search in google
     def findUniqueGoogleSearch(self,searchUrl):
@@ -145,7 +158,7 @@ class BackEndProcess():
         for url in searchUrl:
             
             if len(searchUrl)==1:
-                print ('####################################'+url+'#####################################')
+#                 print ('####################################'+url+'#####################################')
                 self.googleParser(url)
 #                 print (url)
             else:
@@ -153,7 +166,7 @@ class BackEndProcess():
                    count+=1
                    continue
                else:
-                   print ('####################################'+url+'#####################################')
+#                    print ('####################################'+url+'#####################################')
                    self.googleParser(url) 
 #                     print (url)
             count+=1
@@ -172,12 +185,12 @@ class BackEndProcess():
         findG=soup.find_all('div', {'class':"rc"})
         for div in findG:
             title=((div.find('h3', attrs={'class': 'r'}).text).encode(encoding='UTF-8',errors='strict'))
-            print(title)
+#             print(title)
             key=((div.find('cite').text).encode(encoding='UTF-8',errors='strict'))
-            print(key)
+#             print(key)
             data=((div.find('span',attrs={'class':"st"}).text).encode(encoding='UTF-8',errors='strict'))
-            print(data)
-            self.ParseFirstHandInfo(key,title,data.decode("utf-8"))
+#             print(data)
+            self.ParseFirstHandInfo(key.decode("utf-8"),title.decode("utf-8"),data.decode("utf-8"))
         app.update()
         
                  
@@ -187,10 +200,40 @@ class BackEndProcess():
     def ParseFirstHandInfo(self,key,title,urlData):
         '''
         Method which search the content for email,phone and address and decide the criticality of links found in google search
+        create method to check name in data
+        if data has email phone address
+        make it high
+        else 
+        check heading contains name
+        put it in mid
+        else low
         '''
-        self.ParsePhoneNum(urlData)
-        self.ParseEmail(urlData)
-        self.ParseAddress(urlData)
+        
+        
+        if self.checkNamesInData(urlData):
+            if self.ParsePhoneNum(urlData) or self.ParseEmail(urlData) or self.ParseAddress(urlData):
+                self.ParsePhoneNum(urlData)
+                self.ParseEmail(urlData)
+                self.ParseAddress(urlData)
+                tempdict={key:[title,urlData]}
+                sps.AppVariables.high_Link_dict.update(tempdict)
+            elif self.checkNamesInData(title):
+                tempdict1={key:[title,urlData]}
+                sps.AppVariables.mid_Link_dict.update(tempdict1)
+            else:
+                tempdict2={key:[title,urlData]}
+                sps.AppVariables.low_Link_dict.update(tempdict2)
+        else:
+            if self.checkNamesInData(title):
+                tempdict1={key:[title,urlData]}
+                sps.AppVariables.mid_Link_dict.update(tempdict1)
+            else:
+                tempdict2={key:[title,urlData]}
+                sps.AppVariables.low_Link_dict.update(tempdict2)
+            
+                
+                
+            
         
     
     
@@ -199,7 +242,8 @@ class BackEndProcess():
         phoneRegrex=re.compile(r'(\d{3}[-\.\s]??\d{3}[-\.\s]??\d{4}|\(\d{3}\)\s*\d{3}[-\.\s]??\d{4}|\d{3}[-\.\s]??\d{4})')
         result = re.search(phoneRegrex, data)
         if result:
-            AppVariables.phone_numbers.append(result.group(0))
+            temp={result.group(0):""}
+            sps.AppVariables.phone_numbers.update(temp)
             return True
         else:
             return False
@@ -209,7 +253,39 @@ class BackEndProcess():
         emailRegex = re.compile(r"[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}", re.IGNORECASE)
         result = re.search(emailRegex, data)
         if result:
-            AppVariables.email_id.append(result.group(0))
+            temp={result.group(0):""}
+            AppVariables.email_id.update(temp)
+            return True
+        else:
+            return False
+        
+    #method for find various combination of first name last name and middle name
+    def checkNamesInData(self,AnyData):
+        self.initalizedSearchData()
+        regrex=""
+        if AppVariables.Middle_Name_data != "":
+            regrex=AppVariables.data_FL+'|'\
+            +AppVariables.data_FML+'|'\
+            +AppVariables.data_F_M+'|'\
+            +AppVariables.data_M_F+'|'\
+            +AppVariables.data_L_M+'|'\
+            +AppVariables.data_M_L+'|'\
+            +AppVariables.data_F_sM_L+'|'\
+            +AppVariables.data_F_M_L_+'|'\
+            +AppVariables.data_LF+'|'\
+            +AppVariables.data_F_L+'|'\
+            +AppVariables.data_L_F+'|'\
+            +AppVariables.data_FL_
+        else:
+            regrex=AppVariables.data_FL+'|'\
+            +AppVariables.data_LF+'|'\
+            +AppVariables.data_F_L+'|'\
+            +AppVariables.data_L_F+'|'\
+            +AppVariables.data_FL_
+        print(regrex)
+        NameRegex = re.compile(regrex, re.IGNORECASE)
+        result = re.search(NameRegex, AnyData)
+        if result:
             return True
         else:
             return False
@@ -219,28 +295,30 @@ class BackEndProcess():
         addressRegex = re.compile(r'(\d{1,10}( \w+){1,10}( ( \w+){1,10})?( \w+){1,10}[,](( \w+){1,10}(,)? [A-Z]{2}( [0-9]{5})?)?)', re.IGNORECASE)
         result = re.search(addressRegex, data)
         if result:
-            AppVariables.userAddress.append(result.group(0))
+            temp={result.group(0):""}
+            AppVariables.userAddress.update(temp)
             return True
         else:
             return False
         
-        
-        
-        
-    
+  
       
     def initalizedSearchData(self):
         AppVariables.data_FL=AppVariables.First_Name_data+" "+AppVariables.Last_Name_data
         if AppVariables.Middle_Name_data !="":
-            AppVariables.data_FLM=AppVariables.First_Name_data+" "+AppVariables.Middle_Name_data+" "+AppVariables.Last_Name_data
+            AppVariables.data_FML=AppVariables.First_Name_data+" "+AppVariables.Middle_Name_data+" "+AppVariables.Last_Name_data
             AppVariables.data_F_M=AppVariables.First_Name_data+"."+AppVariables.Middle_Name_data
             AppVariables.data_M_F=AppVariables.Middle_Name_data+"."+AppVariables.First_Name_data
             AppVariables.data_L_M=AppVariables.Last_Name_data+"."+AppVariables.Middle_Name_data
             AppVariables.data_M_L=AppVariables.Middle_Name_data+"."+AppVariables.Last_Name_data
-                        
+            S_M=AppVariables.Middle_Name_data[0:1]
+            AppVariables.data_F_sM_L=AppVariables.First_Name_data+" "+S_M+" "+AppVariables.Last_Name_data
+            AppVariables.data_F_M_L_ = AppVariables.First_Name_data+AppVariables.Middle_Name_data+AppVariables.Last_Name_data              
+        
         AppVariables.data_LF=AppVariables.Last_Name_data+" "+AppVariables.First_Name_data
         AppVariables.data_F_L=AppVariables.First_Name_data+"."+AppVariables.Last_Name_data
         AppVariables.data_L_F=AppVariables.Last_Name_data+"."+AppVariables.First_Name_data
+        AppVariables.data_FL_ = AppVariables.First_Name_data+AppVariables.Last_Name_data
         
         
         
