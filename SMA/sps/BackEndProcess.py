@@ -22,22 +22,27 @@ class BackEndProcess():
         '''
     #clear all the stored data and begin new search  
     def clearAllList(self):
+        #variables to be cleaned before new search
         sps.AppVariables.phone_numbers={}
         sps.AppVariables.email_id={}
         sps.AppVariables.userAddress={}
         sps.AppVariables.mid_Link_dict={}
         sps.AppVariables.high_Link_dict={}
         sps.AppVariables.low_Link_dict={}
+        sps.AppVariables.SocialMeidaIdDict={}
         
         #important method which calls all the method.
         self.googleUrl() 
-        
+        newTempDict=sps.AppVariables.high_Link_dict
+        newTempDict.update(sps.AppVariables.mid_Link_dict)
+        self.getSocialMediaId(newTempDict)
         print(AppVariables.phone_numbers)
         print(AppVariables.email_id)
         print(AppVariables.userAddress)
         print(sps.AppVariables.high_Link_dict)
         print(sps.AppVariables.mid_Link_dict)
         print(sps.AppVariables.low_Link_dict)
+        print(sps.AppVariables.SocialMeidaIdDict)
         
         
     
@@ -46,8 +51,6 @@ class BackEndProcess():
         Method which search google.com based on input provided by the user
         It creates dynamic link based on user input.
         '''
-        
-        
         AppVariables.FirstLast='"'+AppVariables.First_Name_data +'+' +AppVariables.Last_Name_data+'"'+'&nfpr=1'
         if AppVariables.Middle_Name_data != "" :
             AppVariables.FirstMiddleLast='"'+AppVariables.First_Name_data+'+'+AppVariables.Middle_Name_data+'+'+AppVariables.Last_Name_data+'"'+'&nfpr=1'
@@ -221,14 +224,14 @@ class BackEndProcess():
                 tempdict1={key:[title,urlData]}
                 sps.AppVariables.mid_Link_dict.update(tempdict1)
             else:
-                tempdict2={key:[title,urlData]}
+                tempdict2={key:[title]}
                 sps.AppVariables.low_Link_dict.update(tempdict2)
         else:
             if self.checkNamesInData(title):
                 tempdict1={key:[title,urlData]}
                 sps.AppVariables.mid_Link_dict.update(tempdict1)
             else:
-                tempdict2={key:[title,urlData]}
+                tempdict2={key:[title]}
                 sps.AppVariables.low_Link_dict.update(tempdict2)
             
                 
@@ -282,7 +285,7 @@ class BackEndProcess():
             +AppVariables.data_F_L+'|'\
             +AppVariables.data_L_F+'|'\
             +AppVariables.data_FL_
-        print(regrex)
+#         print(regrex)
         NameRegex = re.compile(regrex, re.IGNORECASE)
         result = re.search(NameRegex, AnyData)
         if result:
@@ -320,9 +323,38 @@ class BackEndProcess():
         AppVariables.data_L_F=AppVariables.Last_Name_data+"."+AppVariables.First_Name_data
         AppVariables.data_FL_ = AppVariables.First_Name_data+AppVariables.Last_Name_data
         
-        
-        
-        
+    #method for fetching the pre defined social media id from the google search link 
+    def getSocialMediaId(self,dict):
+        '''
+        Check if header has name first
+        Get the url from  high_link and mid_link dictionay
+        iterate social meida url on this link to search for social media keyword
+        if found use rsplit to grab the information from the link 
+        store the information in the seprate dictionary in the form of key:value
+        '''
+        listLength=len(sps.AppVariables.SocialMediaList)
+        count=0
+        regrex=""
+        for socialTag in sps.AppVariables.SocialMediaList:
+            if count==0:
+                regrex+=socialTag+'|'+""
+            elif count<listLength-1 and count>0:
+                regrex+=socialTag+'|'+""
+            else:
+                regrex+=socialTag
+            count+=1
+        for key,title in dict.items():
+            if self.checkNamesInData(title[0]):
+                socialReg=re.compile(regrex,re.IGNORECASE)
+                result=re.search(socialReg,title[0])
+                if result:
+                    tag=result.group(0)
+                    getId=key.rsplit('/', 1)
+                    temp={key:[tag,getId[1]]}
+                    sps.AppVariables.SocialMeidaIdDict.update(temp)
+                
+                
+            
         
         
         

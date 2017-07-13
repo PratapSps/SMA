@@ -61,7 +61,8 @@ email_id={}
 userAddress={}
 
 #Data to search for social media websites
-SocialMediaList=["GitHub","LinkedIn","Facebook","Twitter","Instagram photos and videos","Pinterest"]
+SocialMediaList=["GitHub","LinkedIn","Facebook","Twitter","Instagram photos and videos","Pinterest","Vizualize.me","Google+"]
+SocialMeidaIdDict={}
 
 #Variables for looking into googlesearched link
 #Name with space

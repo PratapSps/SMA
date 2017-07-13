@@ -9,6 +9,12 @@ website: https://survya.com
 '''
 import re
 
+
+# data="https:www.survya.com/spspratap"
+# 
+# list=(data.rsplit('/', 1))
+# print(list[1])
+
 # data=" Survya Pratap 252Singh 68 7th  OH 43201. Mob: 9375816431 | E-mail: singh.survya .sogeti@gmail.com.in Website:\xc2\xa0..."
 # a="Survya Pratap"
 # b="pratap.singh"
@@ -42,8 +48,9 @@ import re
 # # result1 = result1.groups()
 # # result1 = "-".join(result1)
 
-dict={2:'sdfds'}
-dict.update({2:'uiriwerwr'})
-dict.update({3:'sdfhga'})
-
-print (dict)
+dict={2:['sdfds']}
+dict.update({2:['uiriwerwr']})
+dict.update({3:['sdfhga']})
+for d,c in dict.items():
+    print(d)
+    print(c[0])
