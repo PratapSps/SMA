@@ -9,7 +9,8 @@ from bs4 import BeautifulSoup
 from sps.createAppGui import *
 from sps.AppVariables import app
 import re
-
+import urllib
+from io import BytesIO
 
 class BackEndProcess():
     '''
@@ -30,6 +31,7 @@ class BackEndProcess():
         sps.AppVariables.high_Link_dict={}
         sps.AppVariables.low_Link_dict={}
         sps.AppVariables.SocialMeidaIdDict={}
+        sps.AppVariables.image_list=[]
         
         #important method which calls all the method.
         self.googleUrl() 
@@ -41,7 +43,7 @@ class BackEndProcess():
         print(AppVariables.userAddress)
         print(sps.AppVariables.high_Link_dict)
         print(sps.AppVariables.mid_Link_dict)
-        print(sps.AppVariables.low_Link_dict)
+        print((sps.AppVariables.low_Link_dict))
         print(sps.AppVariables.SocialMeidaIdDict)
         
         
@@ -354,7 +356,17 @@ class BackEndProcess():
                     sps.AppVariables.SocialMeidaIdDict.update(temp)
                 
                 
-            
+    def parseImageFromGoogle(self,url):
+        tempurl = url
+        req = urllib.request.Request(url)
+        header={'User-Agent':'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.27 Safari/537.17'}
+        with urllib.request.urlopen(url) as u:
+            raw_data = u.read()
+        image = Image.open(BytesIO(raw_data))
+        sps.AppVariables.image_list.append(image)
+        
+        
+                
         
         
         

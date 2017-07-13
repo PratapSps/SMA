@@ -86,8 +86,8 @@ data_F_M_L_=""
 data_F_sM_L=""
 
 
-
-
+#image list for storing
+image_list=[]
 
 
 
