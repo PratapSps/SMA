@@ -50,6 +50,10 @@ UserEmailID=""
 
 #URL link
 googleBaseUrl="https://www.google.com/search?q="
+googleBaseUrl_1='&nfpr=1'
+googleImgUrl_1="https://www.google.co.in/search?q="
+googleImgUrl_2="&source=lnms&tbm=isch&nfpr=1"
+
 
 mid_Link_dict={} #dictionary for storing linked searched by google
 low_Link_dict={} #dictionary for storing linked searched by google
@@ -86,8 +90,8 @@ data_F_M_L_=""
 data_F_sM_L=""
 
 
-#image list for storing
-image_list=[]
+#image dictionay  for storing unique images
+image_dict={}
 
 
 

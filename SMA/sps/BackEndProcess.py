@@ -11,6 +11,7 @@ from sps.AppVariables import app
 import re
 import urllib
 from io import BytesIO
+import json
 
 class BackEndProcess():
     '''
@@ -31,54 +32,57 @@ class BackEndProcess():
         sps.AppVariables.high_Link_dict={}
         sps.AppVariables.low_Link_dict={}
         sps.AppVariables.SocialMeidaIdDict={}
-        sps.AppVariables.image_list=[]
+        sps.AppVariables.image_dict={}
         
         #important method which calls all the method.
-        self.googleUrl() 
+        self.googleUrl("findData",sps.AppVariables.googleBaseUrl,sps.AppVariables.googleBaseUrl_1) 
         newTempDict=sps.AppVariables.high_Link_dict
         newTempDict.update(sps.AppVariables.mid_Link_dict)
         self.getSocialMediaId(newTempDict)
-        print(AppVariables.phone_numbers)
-        print(AppVariables.email_id)
-        print(AppVariables.userAddress)
-        print(sps.AppVariables.high_Link_dict)
-        print(sps.AppVariables.mid_Link_dict)
-        print((sps.AppVariables.low_Link_dict))
-        print(sps.AppVariables.SocialMeidaIdDict)
+        self.googleUrl("findImage",sps.AppVariables.googleImgUrl_1,sps.AppVariables.googleImgUrl_2) 
+#         print(AppVariables.phone_numbers)
+#         print(AppVariables.email_id)
+#         print(AppVariables.userAddress)
+#         print(sps.AppVariables.high_Link_dict)
+#         print(sps.AppVariables.mid_Link_dict)
+#         print((sps.AppVariables.low_Link_dict))
+#         print(sps.AppVariables.SocialMeidaIdDict)
+        print(sps.AppVariables.image_dict)
+        
         
         
     
-    def googleUrl(self):
+    def googleUrl(self,action,urlprefix,urlsuffix):
         '''
         Method which search google.com based on input provided by the user
         It creates dynamic link based on user input.
         '''
-        AppVariables.FirstLast='"'+AppVariables.First_Name_data +'+' +AppVariables.Last_Name_data+'"'+'&nfpr=1'
+        AppVariables.FirstLast='"'+AppVariables.First_Name_data +'+' +AppVariables.Last_Name_data+'"'+urlsuffix
         if AppVariables.Middle_Name_data != "" :
-            AppVariables.FirstMiddleLast='"'+AppVariables.First_Name_data+'+'+AppVariables.Middle_Name_data+'+'+AppVariables.Last_Name_data+'"'+'&nfpr=1'
+            AppVariables.FirstMiddleLast='"'+AppVariables.First_Name_data+'+'+AppVariables.Middle_Name_data+'+'+AppVariables.Last_Name_data+'"'+urlsuffix
             
         if AppVariables.Country_data != "" :
-            AppVariables.FirstLastCoun='"'+AppVariables.First_Name_data +'+' +AppVariables.Last_Name_data+'"'+'%20'+AppVariables.Country_data+'&nfpr=1'
+            AppVariables.FirstLastCoun='"'+AppVariables.First_Name_data +'+' +AppVariables.Last_Name_data+'"'+'%20'+AppVariables.Country_data+urlsuffix
             if AppVariables.Middle_Name_data != "" :
-               AppVariables.FirstMLastCoun='"'+AppVariables.First_Name_data +'+'+AppVariables.Middle_Name_data+'+'+AppVariables.Last_Name_data+'"'+'%20'+AppVariables.Country_data+'&nfpr=1' 
+               AppVariables.FirstMLastCoun='"'+AppVariables.First_Name_data +'+'+AppVariables.Middle_Name_data+'+'+AppVariables.Last_Name_data+'"'+'%20'+AppVariables.Country_data+urlsuffix 
         
         if AppVariables.State_data != "" :
-            AppVariables.FirstLastState='"'+AppVariables.First_Name_data +'+' +AppVariables.Last_Name_data+'"'+'%20'+AppVariables.State_data+'&nfpr=1'
+            AppVariables.FirstLastState='"'+AppVariables.First_Name_data +'+' +AppVariables.Last_Name_data+'"'+'%20'+AppVariables.State_data+urlsuffix
             if AppVariables.Middle_Name_data != "" :
-                AppVariables.FirstMLastState='"'+AppVariables.First_Name_data +'+' +AppVariables.Middle_Name_data+'+'+AppVariables.Last_Name_data+'"'+'%20'+AppVariables.State_data+'&nfpr=1'
+                AppVariables.FirstMLastState='"'+AppVariables.First_Name_data +'+' +AppVariables.Middle_Name_data+'+'+AppVariables.Last_Name_data+'"'+'%20'+AppVariables.State_data+urlsuffix
         
         if AppVariables.City_data != "" :
-            AppVariables.FirstLastCity='"'+AppVariables.First_Name_data +'+' +AppVariables.Last_Name_data+'"'+'%20'+AppVariables.City_data+'&nfpr=1'
+            AppVariables.FirstLastCity='"'+AppVariables.First_Name_data +'+' +AppVariables.Last_Name_data+'"'+'%20'+AppVariables.City_data+urlsuffix
             if AppVariables.Middle_Name_data != "" :
-                AppVariables.FirstMLastCity='"'+AppVariables.First_Name_data +'+' +AppVariables.Middle_Name_data+'+'+AppVariables.Last_Name_data+'"'+'%20'+AppVariables.City_data+'&nfpr=1'
+                AppVariables.FirstMLastCity='"'+AppVariables.First_Name_data +'+' +AppVariables.Middle_Name_data+'+'+AppVariables.Last_Name_data+'"'+'%20'+AppVariables.City_data+urlsuffix
             
         if AppVariables.School_Name_data != "" :
-            AppVariables.FirstLastSchool='"'+AppVariables.First_Name_data +'+' +AppVariables.Last_Name_data+'"'+'%20'+AppVariables.School_Name_data+'&nfpr=1'
+            AppVariables.FirstLastSchool='"'+AppVariables.First_Name_data +'+' +AppVariables.Last_Name_data+'"'+'%20'+AppVariables.School_Name_data+urlsuffix
             if AppVariables.Middle_Name_data != "" :
-                AppVariables.FirstMLastSchool='"'+AppVariables.First_Name_data +'+'+AppVariables.Middle_Name_data+'+' +AppVariables.Last_Name_data+'"'+'%20'+AppVariables.School_Name_data+'&nfpr=1'
+                AppVariables.FirstMLastSchool='"'+AppVariables.First_Name_data +'+'+AppVariables.Middle_Name_data+'+' +AppVariables.Last_Name_data+'"'+'%20'+AppVariables.School_Name_data+urlsuffix
         
         if AppVariables.Email_data != "" :
-            AppVariables.UserEmailID='"'+AppVariables.Email_data+'"'+'&nfpr=1'
+            AppVariables.UserEmailID='"'+AppVariables.Email_data+'"'+urlsuffix
         
         UniqueSearchURl=[]
         url1=""
@@ -94,66 +98,72 @@ class BackEndProcess():
         url11=""
         
         
-        url1=AppVariables.googleBaseUrl+AppVariables.FirstLast
+        url1=urlprefix+AppVariables.FirstLast
         if AppVariables.FirstMiddleLast!="":
-            url2=AppVariables.googleBaseUrl+AppVariables.FirstMiddleLast
-            if AppVariables.googleBaseUrl+AppVariables.FirstMLastCoun != AppVariables.googleBaseUrl+"" :
-                url7=AppVariables.googleBaseUrl+AppVariables.FirstMLastCoun
-            if AppVariables.googleBaseUrl+AppVariables.FirstMLastState != AppVariables.googleBaseUrl+"" :
-                url8=AppVariables.googleBaseUrl+AppVariables.FirstMLastState
-            if AppVariables.googleBaseUrl+AppVariables.FirstMLastCity != AppVariables.googleBaseUrl+"" :
-                url9=AppVariables.googleBaseUrl+AppVariables.FirstMLastCity
-            if AppVariables.googleBaseUrl+AppVariables.FirstMLastSchool != AppVariables.googleBaseUrl+"" :
-                url10=AppVariables.googleBaseUrl+AppVariables.FirstMLastSchool
+            url2=urlprefix+AppVariables.FirstMiddleLast
+            if AppVariables.FirstMLastCoun !="":
+                url7=urlprefix+AppVariables.FirstMLastCoun
+            if AppVariables.FirstMLastState !="":
+                url8=urlprefix+AppVariables.FirstMLastState
+            if AppVariables.FirstMLastCity !="":
+                url9=urlprefix+AppVariables.FirstMLastCity
+            if AppVariables.FirstMLastSchool !="":
+                url10=urlprefix+AppVariables.FirstMLastSchool
             
         if AppVariables.FirstLastCoun!="":
-            url3=AppVariables.googleBaseUrl+AppVariables.FirstLastCoun  
+            url3=urlprefix+AppVariables.FirstLastCoun  
             
         if AppVariables.FirstLastState!="":
-            url4=AppVariables.googleBaseUrl+AppVariables.FirstLastState
+            url4=urlprefix+AppVariables.FirstLastState
             
         if AppVariables.FirstLastCity!="":
-            url5=AppVariables.googleBaseUrl+AppVariables.FirstLastCity
+            url5=urlprefix+AppVariables.FirstLastCity
 
         if AppVariables.FirstLastSchool!="":
-            url6=AppVariables.googleBaseUrl+AppVariables.FirstLastSchool
+            url6=urlprefix+AppVariables.FirstLastSchool
 
         if AppVariables.UserEmailID !="":
-            url11=AppVariables.googleBaseUrl+AppVariables.UserEmailID
+            url11=urlprefix+AppVariables.UserEmailID
         
         UniqueSearchURl.append(url1)
         if url2 != "":
-          UniqueSearchURl.append(url2)
+            
+            UniqueSearchURl.append(url2)
           
         if url3 != "":
-          UniqueSearchURl.append(url3)
+            UniqueSearchURl.append(url3)
 
         if url4 != "":
-          UniqueSearchURl.append(url4)
+            UniqueSearchURl.append(url4)
           
         if url5 != "":
-          UniqueSearchURl.append(url5)
+            UniqueSearchURl.append(url5)
           
         if url6 != "":
-          UniqueSearchURl.append(url6)  
+            UniqueSearchURl.append(url6)  
         
         if url7 != "":
-          UniqueSearchURl.append(url7)
+            UniqueSearchURl.append(url7)
         
         if url8 != "":
-          UniqueSearchURl.append(url8)
+            UniqueSearchURl.append(url8)
           
         if url9 != "":
-          UniqueSearchURl.append(url9)
+            UniqueSearchURl.append(url9)
         
         if url10 != "":
-          UniqueSearchURl.append(url10)
+            UniqueSearchURl.append(url10)
         
         if url11 != "":
-          UniqueSearchURl.append(url11)
+            UniqueSearchURl.append(url11)
         
-        BackEndProcess().findUniqueGoogleSearch(UniqueSearchURl)
-#         print (UniqueSearchURl)
+        
+        if action=="findData":
+            BackEndProcess().findUniqueGoogleSearch(UniqueSearchURl)
+            UniqueSearchURl=[]
+        if action=="findImage":
+            self.fetchImageUrl(UniqueSearchURl)
+            UniqueSearchURl=[]
        
 #         
     #find unique link from each url that is being search in google
@@ -354,18 +364,55 @@ class BackEndProcess():
                     getId=key.rsplit('/', 1)
                     temp={key:[tag,getId[1]]}
                     sps.AppVariables.SocialMeidaIdDict.update(temp)
-                
-                
+     
+     
+     #method for deciding on the link for image searching 
+    def fetchImageUrl(self,urllist):
+        '''
+        this method will fetch images from google based on the data provided by user
+        '''
+        count=0
+        for url in urllist:
+            
+            if len(urllist)==1:
+#                 print ('####################################'+url+'#####################################')
+                self.parseImageFromGoogle(url)
+#                 print (url)
+            else:
+               if count==0:
+                   count+=1
+                   continue
+               else:
+#                    print ('####################################'+url+'#####################################')
+                   self.parseImageFromGoogle(url) 
+#                     print (url)
+            count+=1
+    
+    
+    
+              
+    #get base 64 encode of image from the url and store it to the dictionary
     def parseImageFromGoogle(self,url):
-        tempurl = url
-        req = urllib.request.Request(url)
-        header={'User-Agent':'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.27 Safari/537.17'}
-        with urllib.request.urlopen(url) as u:
-            raw_data = u.read()
-        image = Image.open(BytesIO(raw_data))
-        sps.AppVariables.image_list.append(image)
+        print(url)
+        app.update()
+        r = requests.get(url,headers={"User-Agent":"Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.27 Safari/537.17"})
+        soup = BeautifulSoup(r.text, "html.parser")
+        findG=soup.find_all('div', {'class':'rg_meta'})
         
-        
+        for a in findG:
+            
+            webLeakageSrc=json.loads(a.text)["isu"]
+            Imagelink=json.loads(a.text)["ou"]
+            ImageHeading=json.loads(a.text)["pt"]
+            Imagedata=json.loads(a.text)["s"]
+            tempdata=ImageHeading+" "+Imagedata
+            if self.checkNamesInData(tempdata):
+                tempDict={Imagelink:webLeakageSrc}
+                sps.AppVariables.image_dict.update(tempDict)
+                
+        app.update()
+                
+                
                 
         
         

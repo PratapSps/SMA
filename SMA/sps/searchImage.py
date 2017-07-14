@@ -12,7 +12,7 @@ import requests
 from bs4 import BeautifulSoup
 import json
 
-query='"survya singh"'+'+'+'ohio'
+query='"survya singh"'+'+'+'Linkedin'
 
 url="https://www.google.co.in/search?q="+query+"&source=lnms&tbm=isch&nfpr=1"
 
@@ -22,8 +22,14 @@ r = requests.get(url,headers={"User-Agent":"Mozilla/5.0 (X11; Linux i686) AppleW
 soup = BeautifulSoup(r.text, "html.parser")
 findG=soup.find_all('div', {'class':'rg_meta'})
 for a in findG:
-    link=json.loads(a.text)["ou"]
-    print(link)
+    webLeakageSrc=json.loads(a.text)["isu"]
+    Imagelink=json.loads(a.text)["ou"]
+    ImageHeading=json.loads(a.text)["pt"]
+    Imagedata=json.loads(a.text)["s"]
+    print(webLeakageSrc)
+    print(Imagelink)
+    print(ImageHeading)
+    print(Imagedata)
 
 
 
