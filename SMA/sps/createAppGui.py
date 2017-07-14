@@ -55,7 +55,7 @@ class createAppGui:
         Home_frame = Frame(notebook,background='white')
         Home_frame.pack(fill=BOTH, expand=True)
         notebook.add(Home_frame, text=name,image='/images/applogo.png')
-        frame=self.createFramedScrollBar(Home_frame)
+        frame=self.createFramedScrollBar(Home_frame,1300,700)
         frame.config(background='white')
         w = Label(frame, image=logo, bg="white", fg="white")
         w.place(x = 400, y = 200)
@@ -72,7 +72,7 @@ class createAppGui:
         new_frame=Frame(notebook,background='gray')
         new_frame.pack(fill=BOTH, expand=True)
         notebook.add(new_frame,text=AppVariables.username)
-        frame=self.createFramedScrollBar(new_frame)
+        frame=self.createFramedScrollBar(new_frame,1300,700)
         frame.config(background='ivory2')
         self.addElementToFrame(frame)
         
@@ -98,7 +98,7 @@ class createAppGui:
      
      
      #create scrollbar contained frame   
-    def createFramedScrollBar(self,container):
+    def createFramedScrollBar(self,container,w,h):
         canvas = Canvas(container,bg='white')
         xscroll = Scrollbar(container, command=canvas.xview,orient = HORIZONTAL)
         yscroll = Scrollbar(container, command=canvas.yview,orient = VERTICAL)
@@ -109,7 +109,7 @@ class createAppGui:
         yscroll.pack(side=RIGHT, fill=Y,expand = FALSE)
         canvas.pack(side=LEFT, fill=BOTH, expand=TRUE)
         frame = Frame(canvas)
-        canvas.create_window(0,0, anchor =NW, window = frame, width = 1300, height = 700)
+        canvas.create_window(0,0, anchor =NW, window = frame, width = w, height = h)
         return frame
     
     
@@ -177,6 +177,7 @@ class createAppGui:
         Animation1(self,innerFrame,150,550) # show loading gif
         BackEndProcess().clearAllList()
         self.enableButton()
+        self.presentationLayer(app)
     
     #disable form button   
     def disableButton(self):
@@ -187,8 +188,26 @@ class createAppGui:
     def enableButton(self):
         self.launch_button.config(state='normal')
         sps.AppVariables.launch_status=1
+        
+    
                 
-
+    def presentationLayer(self,parent):
+        top = self.top = Toplevel(parent)
+        icon = PhotoImage(file=appLogo)
+        top.tk.call('wm', 'iconphoto', top._w, icon)
+        top.wm_title(sps.AppVariables.First_Name_data.upper()+" - "+"Cyber Presence")
+        top.geometry('1100x620')
+        top.maxsize(width=1300, height=700)
+        top.wm_state('zoomed')
+        new_frame=Frame(top,background='gray')
+        new_frame.pack(fill=BOTH, expand=True)
+        frame=self.createFramedScrollBar(new_frame,1300,700)
+        frame.config(background='ivory2')
+        NewinnerFrame = Frame(frame,height=700, width=1300,bd=1,background= 'gray99',relief=GROOVE)
+        NewinnerFrame.place(x = 1, y =0)
+        app.wait_window(top)
+    
+        
 
         
     

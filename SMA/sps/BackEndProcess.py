@@ -43,15 +43,15 @@ class BackEndProcess():
         self.getSocialMediaId(newTempDict)
         self.googleUrl("findImage",sps.AppVariables.googleImgUrl_1,sps.AppVariables.googleImgUrl_2) 
         self.generatebs64Img()
-#         print(AppVariables.phone_numbers)
+#         print((AppVariables.phone_numbers))
 #         print(AppVariables.email_id)
 #         print(AppVariables.userAddress)
-#         print(sps.AppVariables.high_Link_dict)
-#         print(sps.AppVariables.mid_Link_dict)
-#         print((sps.AppVariables.low_Link_dict))
+#         print((sps.AppVariables.high_Link_dict).encode(encoding='UTF-8',errors='strict'))
+#         print((sps.AppVariables.mid_Link_dict).encode(encoding='UTF-8',errors='strict'))
+#         print((sps.AppVariables.low_Link_dict).encode(encoding='UTF-8',errors='strict'))
 #         print(sps.AppVariables.SocialMeidaIdDict)
-        print(sps.AppVariables.image_dict)
-        print(sps.AppVariables.image_bs64Image)
+#         print(sps.AppVariables.image_dict)
+#         print(sps.AppVariables.image_bs64Image)
         
         
     
@@ -407,7 +407,7 @@ class BackEndProcess():
             Imagelink=json.loads(a.text)["ou"]
             ImageHeading=json.loads(a.text)["pt"]
             Imagedata=json.loads(a.text)["s"]
-            tempdata=ImageHeading+" "+Imagedata
+            tempdata=ImageHeading+" "+Imagedata+" "+Imagelink
             if self.checkNamesInData(tempdata):
                 tempDict={Imagelink:webLeakageSrc}
                 sps.AppVariables.image_dict.update(tempDict)
