@@ -12,6 +12,7 @@ import re
 import urllib
 from io import BytesIO
 import json
+from PIL import Image, ImageTk
 
 class BackEndProcess():
     '''
@@ -33,6 +34,7 @@ class BackEndProcess():
         sps.AppVariables.low_Link_dict={}
         sps.AppVariables.SocialMeidaIdDict={}
         sps.AppVariables.image_dict={}
+        sps.AppVariables.image_bs64Image={}
         
         #important method which calls all the method.
         self.googleUrl("findData",sps.AppVariables.googleBaseUrl,sps.AppVariables.googleBaseUrl_1) 
@@ -40,6 +42,7 @@ class BackEndProcess():
         newTempDict.update(sps.AppVariables.mid_Link_dict)
         self.getSocialMediaId(newTempDict)
         self.googleUrl("findImage",sps.AppVariables.googleImgUrl_1,sps.AppVariables.googleImgUrl_2) 
+        self.generatebs64Img()
 #         print(AppVariables.phone_numbers)
 #         print(AppVariables.email_id)
 #         print(AppVariables.userAddress)
@@ -48,7 +51,7 @@ class BackEndProcess():
 #         print((sps.AppVariables.low_Link_dict))
 #         print(sps.AppVariables.SocialMeidaIdDict)
         print(sps.AppVariables.image_dict)
-        
+        print(sps.AppVariables.image_bs64Image)
         
         
     
@@ -393,7 +396,6 @@ class BackEndProcess():
               
     #get base 64 encode of image from the url and store it to the dictionary
     def parseImageFromGoogle(self,url):
-        print(url)
         app.update()
         r = requests.get(url,headers={"User-Agent":"Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.27 Safari/537.17"})
         soup = BeautifulSoup(r.text, "html.parser")
@@ -411,6 +413,33 @@ class BackEndProcess():
                 sps.AppVariables.image_dict.update(tempDict)
                 
         app.update()
+#
+        
+    #download image from url and genrate base64 encode of the image and store it in dictionary
+    def generatebs64Img(self):
+        for key,value in sps.AppVariables.image_dict.items():
+            app.update()
+            
+            url = key
+#             req = urllib.request.Request(url)
+#             header={'User-Agent':'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.27 Safari/537.17'}
+            req = urllib.request.Request(url)
+            req.add_header('User-Agent', 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.27 Safari/537.17')
+            try:
+                app.update()
+                data=urllib.request.urlopen(req)
+                raw_data = data.read()
+                image = Image.open(BytesIO(raw_data))
+                tempDict={key:[value,image]}
+                sps.AppVariables.image_bs64Image.update(tempDict)
+            except:
+                app.update()
+                continue
+            app.update()
+            
+            
+                        
+            
                 
                 
                 

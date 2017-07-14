@@ -92,6 +92,7 @@ data_F_sM_L=""
 
 #image dictionay  for storing unique images
 image_dict={}
+image_bs64Image={}
 
 
 
