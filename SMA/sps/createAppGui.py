@@ -16,6 +16,9 @@ from sps.Animation1 import Animation1
 from sps.BackEndProcess import BackEndProcess
 import requests
 from bs4 import BeautifulSoup
+from twisted.words.im.locals import ONLINE
+from tkinter.font import BOLD, ITALIC
+import tkinter.scrolledtext as tkst
 
 innerFrame=""
 class createAppGui:
@@ -107,9 +110,9 @@ class createAppGui:
         canvas.configure(scrollregion=(0,0,1200,600))
         xscroll.pack(side=BOTTOM, fill=X,expand = FALSE)
         yscroll.pack(side=RIGHT, fill=Y,expand = FALSE)
-        canvas.pack(side=LEFT, fill=BOTH, expand=TRUE)
+        canvas.pack(side=LEFT, fill=BOTH, expand=YES)
         frame = Frame(canvas)
-        canvas.create_window(0,0, anchor =NW, window = frame, width = w, height = h)
+        canvas.create_window(0,0, anchor =NW, window = frame, width = w,height=h)
         return frame
     
     
@@ -197,16 +200,127 @@ class createAppGui:
         top.tk.call('wm', 'iconphoto', top._w, icon)
         top.wm_title(sps.AppVariables.First_Name_data.upper()+" - "+"Cyber Presence")
         top.geometry('1100x620')
-        top.maxsize(width=1300, height=700)
+#         top.maxsize(width=1300, height=700)
         top.wm_state('zoomed')
         new_frame=Frame(top,background='gray')
         new_frame.pack(fill=BOTH, expand=True)
-        frame=self.createFramedScrollBar(new_frame,1300,700)
+        canvas = Canvas(new_frame,bg='white')
+        xscroll = Scrollbar(new_frame, command=canvas.xview,orient = HORIZONTAL)
+        yscroll = Scrollbar(new_frame, command=canvas.yview,orient = VERTICAL)
+        canvas.config(xscrollcommand=xscroll.set)
+        canvas.config(yscrollcommand=yscroll.set,)
+#         canvas.configure(scrollregion=(0,0,1200,600))
+        xscroll.pack(side=BOTTOM, fill=X,expand = FALSE)
+        yscroll.pack(side=RIGHT, fill=Y,expand = FALSE)
+        canvas.pack(side=LEFT, fill=BOTH, expand=YES)
+        frame = Frame(canvas)
+        frame.pack(fill=BOTH)
+        canvas.create_window(0,0, anchor =NW, window = frame,height=1200,width=1200)
         frame.config(background='ivory2')
-        NewinnerFrame = Frame(frame,height=700, width=1300,bd=1,background= 'gray99',relief=GROOVE)
-        NewinnerFrame.place(x = 1, y =0)
-        app.wait_window(top)
+        self.PresentationLayerElementData(frame)
+        top.update()
+        canvas.config(scrollregion=canvas.bbox("all"))
+        
+        
+        
     
+    def PresentationLayerElementData(self,parentFrame):
+        innerFrame_present=Frame(parentFrame,height=1000, width=800,bd=1,background= 'gray99')
+        innerFrame_present.configure(highlightbackground="Medium Aquamarine", highlightcolor="Maroon", highlightthickness=2,bd=0)
+        innerFrame_present.place(x = 230, y = 140)
+        personalDetails_l=Label(innerFrame_present,text="Personal Details:",bg='gray99',font=("Helvetica", 16, UNDERLINE,BOLD),fg='steel blue')
+        personalDetails_l.place(x=4,y=10)
+        
+        #first name data presentation
+        FirstName_l=Label(innerFrame_present,text="First Name",bg='gray99',font=("Times", 14,ITALIC,UNDERLINE),fg='Light Steel Blue')
+        FirstName_l.place(x=10,y=45)
+        FirstName_P_E=Entry(innerFrame_present,bg='gray99',bd=0,disabledbackground='gray99',font=("Times", 14,BOLD),fg='Cadet Blue')
+        FirstName_P_E.insert(END,sps.AppVariables.First_Name_data.upper())
+        FirstName_P_E.configure(state=DISABLED)
+        FirstName_P_E.place(x=10,y=70)
+        
+        #Middle name data presentation
+        MiddleName_l=Label(innerFrame_present,text="Middle Name",bg='gray99',font=("Times", 14,ITALIC,UNDERLINE),fg='Light Steel Blue')
+        MiddleName_l.place(x=290,y=45)
+        MiddleName_P_E=Entry(innerFrame_present,bg='gray99',bd=0,disabledbackground='gray99',font=("Times", 14,BOLD),fg='Cadet Blue')
+        if sps.AppVariables.Middle_Name_data !="":
+            MiddleName_P_E.insert(END,sps.AppVariables.Middle_Name_data.upper())
+        else:
+            MiddleName_P_E.insert(END,"N/A")
+        
+        MiddleName_P_E.configure(state=DISABLED)
+        MiddleName_P_E.place(x=290,y=70)
+
+        #Last Name data presentation
+        LastName_l=Label(innerFrame_present,text="Last Name",bg='gray99',font=("Times", 14,ITALIC,UNDERLINE),fg='Light Steel Blue')
+        LastName_l.place(x=580,y=45)
+        LastName_P_E=Entry(innerFrame_present,bg='gray99',bd=0,disabledbackground='gray99',font=("Times", 14,BOLD),fg='Cadet Blue')
+        if sps.AppVariables.Last_Name_data!="":
+            LastName_P_E.insert(END,sps.AppVariables.Last_Name_data.upper())
+        else:
+            LastName_P_E.insert(END,"N/A")
+        LastName_P_E.configure(state=DISABLED)
+        LastName_P_E.place(x=580,y=70)
+        
+        
+        #Phone Number presentation
+        phoneData=""
+        phone_counter=1
+        for data,value in sps.AppVariables.phone_numbers.items():
+            if data!="" and phone_counter<len(sps.AppVariables.phone_numbers):
+                phoneData=phoneData+"-  "+data+'\n'
+            elif phone_counter == len(sps.AppVariables.phone_numbers):
+                phoneData=phoneData+"-  "+data
+            phone_counter+=1
+                
+                
+        if len(sps.AppVariables.phone_numbers)==0:
+            phoneData="N/A"
+        print (phoneData)
+        if phoneData !="N/A":
+            phone_p_l=Label(innerFrame_present,text="Phone Numbers*",bg='gray99',font=("Times", 14,ITALIC,UNDERLINE),fg='Indian Red')
+        else:
+            phone_p_l=Label(innerFrame_present,text="Phone Numbers",bg='gray99',font=("Times", 14,ITALIC,UNDERLINE),fg='Light Steel Blue')
+        phone_p_l.place(x=10,y=125)
+        
+        edit_phone = tkst.ScrolledText(
+        master = innerFrame_present,
+        wrap   = 'word',  # wrap text at full words only
+        width  = 15,      # characters
+        height = 5,      # text lines
+        bg='gray99',
+        fg='Dark Slate Gray',    # background color of edit area
+        font=("Times", 12)
+        )
+        edit_phone.place(x=10,y=160)
+        edit_phone.insert('insert', phoneData)
+        edit_phone.configure(state=DISABLED)
+        
+    
+        #Email Presentation
+        
+        
+        
+        #Address Presentation
+        
+        #Social Media Link Presentation
+        
+        #Link criticality
+        
+        #online random data
+        
+        #Image Presentation
+        
+        #top Image leaking websites
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
 
         
