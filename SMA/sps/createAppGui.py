@@ -268,20 +268,22 @@ class createAppGui:
         phone_counter=1
         for data,value in sps.AppVariables.phone_numbers.items():
             if data!="" and phone_counter<len(sps.AppVariables.phone_numbers):
-                phoneData=phoneData+"-  "+data+'\n'
+                phoneData=phoneData+data+'\n'
             elif phone_counter == len(sps.AppVariables.phone_numbers):
-                phoneData=phoneData+"-  "+data
+                phoneData=phoneData+data
             phone_counter+=1
                 
                 
         if len(sps.AppVariables.phone_numbers)==0:
             phoneData="N/A"
-        print (phoneData)
+        
         if phoneData !="N/A":
             phone_p_l=Label(innerFrame_present,text="Phone Numbers*",bg='gray99',font=("Times", 14,ITALIC,UNDERLINE),fg='Indian Red')
+            
         else:
             phone_p_l=Label(innerFrame_present,text="Phone Numbers",bg='gray99',font=("Times", 14,ITALIC,UNDERLINE),fg='Light Steel Blue')
         phone_p_l.place(x=10,y=125)
+        
         
         edit_phone = tkst.ScrolledText(
         master = innerFrame_present,
@@ -290,20 +292,110 @@ class createAppGui:
         height = 5,      # text lines
         bg='gray99',
         fg='Dark Slate Gray',    # background color of edit area
-        font=("Times", 12)
+        font=("Times", 12,BOLD)
         )
+        if phoneData !="N/A":
+            edit_phone.configure(fg='Dark Slate Blue')
+        edit_phone.configure(highlightbackground="White Smoke", highlightthickness=2,bd=0)
         edit_phone.place(x=10,y=160)
         edit_phone.insert('insert', phoneData)
         edit_phone.configure(state=DISABLED)
+        phone_dataCount=len(sps.AppVariables.phone_numbers)
+        if phone_dataCount > 0:
+            totalCount_p="Count: "+str(phone_dataCount)
+            p_count_l=Label(innerFrame_present,text=totalCount_p,bg='gray99',font=("Courier", 11),fg='Medium Orchid')
+            p_count_l.place(x=10,y=265)
         
     
         #Email Presentation
+        emailData=""
+        email_counter=1
+        for data,value in sps.AppVariables.email_id.items():
+            if data!="" and email_counter<len(sps.AppVariables.email_id):
+                emailData=emailData+data+'\n'
+            elif email_counter == len(sps.AppVariables.email_id):
+                emailData=emailData+data
+            email_counter+=1
+                
+                
+        if len(sps.AppVariables.email_id)==0:
+            emailData="N/A"
         
+        if emailData !="N/A":
+            email_p_l=Label(innerFrame_present,text="Email ID's*",bg='gray99',font=("Times", 14,ITALIC,UNDERLINE),fg='Indian Red')
+        else:
+            email_p_l=Label(innerFrame_present,text="Email ID's",bg='gray99',font=("Times", 14,ITALIC,UNDERLINE),fg='Light Steel Blue')
+        email_p_l.place(x=290,y=125)
+        
+        edit_email = tkst.ScrolledText(
+        master = innerFrame_present,
+        wrap   = 'word',  # wrap text at full words only
+        width  = 22,      # characters
+        height = 5,      # text lines
+        bg='gray99',
+        fg='Dark Slate Gray',    # background color of edit area
+        font=("Times", 12,BOLD)
+        )
+        if emailData !="N/A":
+            edit_email.configure(fg='Dark Slate Blue')
+        edit_email.configure(highlightbackground="White Smoke", highlightthickness=2,bd=0)
+        edit_email.place(x=290,y=160)
+        edit_email.insert('insert', emailData)
+        edit_email.configure(state=DISABLED)
+        email_dataCount=len(sps.AppVariables.email_id)
+        if email_dataCount > 0:
+            totalCount_e="Count: "+str(email_dataCount)
+            e_count_l=Label(innerFrame_present,text=totalCount_e,bg='gray99',font=("Courier", 11),fg='Medium Orchid')
+            e_count_l.place(x=290,y=265)
+        
+        
+        #Social Media Link Presentation
+        SMData=""
+        SM_counter=1
+        for data,value in sps.AppVariables.SocialMeidaIdDict.items():
+            if  SM_counter<len(sps.AppVariables.SocialMeidaIdDict):
+                type=value[0]+" : "+value[1]
+                SMData=SMData+type+'\n'
+            if SM_counter == len(sps.AppVariables.SocialMeidaIdDict):
+                type=value[0]+" : "+value[1]
+                SMData=SMData+type
+            SM_counter+=1
+                 
+                 
+        if len(sps.AppVariables.SocialMeidaIdDict)==0:
+            SMData="N/A"
+        print (SMData)
+        if SMData !="N/A":
+            SM_p_l=Label(innerFrame_present,text="Social Media ID's*",bg='gray99',font=("Times", 14,ITALIC,UNDERLINE),fg='Indian Red')
+        else:
+            SM_p_l=Label(innerFrame_present,text="Email ID's",bg='gray99',font=("Times", 14,ITALIC,UNDERLINE),fg='Light Steel Blue')
+        SM_p_l.place(x=580,y=125)
+         
+        edit_SM = tkst.ScrolledText(
+        master = innerFrame_present,
+        wrap   = 'word',  # wrap text at full words only
+        width  = 22,      # characters
+        height = 5,      # text lines
+        bg='gray99',
+        fg='Dark Slate Gray',    # background color of edit area
+        font=("Times", 12,BOLD)
+        )
+        edit_SM.configure(highlightbackground="White Smoke", highlightthickness=2,bd=0)
+        if SMData !="N/A":
+            edit_SM.configure(fg='Dark Slate Blue')
+        edit_SM.place(x=580,y=160)
+        edit_SM.insert('insert', SMData)
+        edit_SM.configure(state=DISABLED)
+        SM_dataCount=len(sps.AppVariables.SocialMeidaIdDict)
+        if SM_dataCount > 0:
+            totalCount_SM="Count: "+str(SM_dataCount)
+            SM_count_l=Label(innerFrame_present,text=totalCount_SM,bg='gray99',font=("Courier", 11),fg='Medium Orchid')
+            SM_count_l.place(x=580,y=265)
         
         
         #Address Presentation
         
-        #Social Media Link Presentation
+        
         
         #Link criticality
         
