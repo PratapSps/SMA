@@ -212,8 +212,8 @@ class BackEndProcess():
             data=((div.find('span',attrs={'class':"st"}).text).encode("utf-8"))
 #             print(data)
             self.ParseFirstHandInfo(key.decode("utf-8"),title.decode("utf-8"),data.decode("utf-8"))
-            print("high############"+str(sps.AppVariables.high_Link_dict))
-            print("mid##############"+str(sps.AppVariables.mid_Link_dict))
+#             print("high############"+str(sps.AppVariables.high_Link_dict))
+#             print("mid##############"+str(sps.AppVariables.mid_Link_dict))
         app.update()
         
                  
@@ -235,18 +235,18 @@ class BackEndProcess():
         
         if self.checkNamesInData(urlData):
             if self.ParsePhoneNum(urlData) or self.ParseEmail(urlData) or self.ParseAddress(urlData):
-                print("HIGH-------------"+urlData)
+#                 print("HIGH-------------"+urlData)
                 self.ParsePhoneNum(urlData)
                 self.ParseEmail(urlData)
                 self.ParseAddress(urlData)
                 tempdict={key:[title,urlData]}
                 sps.AppVariables.high_Link_dict.update(tempdict)
-                print("HIGH-------------"+str(tempdict))
+#                 print("HIGH-------------"+str(tempdict))
             elif self.checkNamesInData(title):
-                print("Medium-------------"+urlData)
+#                 print("Medium-------------"+urlData)
                 tempdict1={key:[title,urlData]}
                 sps.AppVariables.mid_Link_dict.update(tempdict1)
-                print("Medium-------------"+str(tempdict1))
+#                 print("Medium-------------"+str(tempdict1))
             else:
                 tempdict2={key:[title]}
                 sps.AppVariables.low_Link_dict.update(tempdict2)
@@ -254,7 +254,7 @@ class BackEndProcess():
             if self.checkNamesInData(title):
                 tempdict1={key:[title,urlData]}
                 sps.AppVariables.mid_Link_dict.update(tempdict1)
-                print("Medium-------------"+str(tempdict1))
+#                 print("Medium-------------"+str(tempdict1))
             else:
                 tempdict2={key:[title]}
                 sps.AppVariables.low_Link_dict.update(tempdict2)
@@ -440,7 +440,9 @@ class BackEndProcess():
                 data=urllib.request.urlopen(req)
                 raw_data = data.read()
                 image = Image.open(BytesIO(raw_data))
-                tempDict={key:[value,image]}
+                image = image.resize((150,150), Image.ANTIALIAS)
+                image1 = ImageTk.PhotoImage(image)
+                tempDict={key:[value,image1]}
                 sps.AppVariables.image_bs64Image.update(tempDict)
             except:
                 app.update()

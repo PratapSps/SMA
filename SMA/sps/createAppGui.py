@@ -19,6 +19,11 @@ from bs4 import BeautifulSoup
 from twisted.words.im.locals import ONLINE
 from tkinter.font import BOLD, ITALIC
 import tkinter.scrolledtext as tkst
+from PIL import Image, ImageTk
+import urllib
+from io import BytesIO
+
+
 
 innerFrame=""
 class createAppGui:
@@ -208,24 +213,24 @@ class createAppGui:
         xscroll = Scrollbar(new_frame, command=canvas.xview,orient = HORIZONTAL)
         yscroll = Scrollbar(new_frame, command=canvas.yview,orient = VERTICAL)
         canvas.config(xscrollcommand=xscroll.set)
-        canvas.config(yscrollcommand=yscroll.set,)
+        canvas.config(yscrollcommand=yscroll.set)
 #         canvas.configure(scrollregion=(0,0,1200,600))
         xscroll.pack(side=BOTTOM, fill=X,expand = FALSE)
         yscroll.pack(side=RIGHT, fill=Y,expand = FALSE)
         canvas.pack(side=LEFT, fill=BOTH, expand=YES)
         frame = Frame(canvas)
         frame.pack(fill=BOTH)
-        canvas.create_window(0,0, anchor =NW, window = frame,height=2200,width=1200)
+        canvas.create_window(0,0, anchor =NW, window = frame,height=3000,width=1200)
         frame.config(background='ivory2')
-        self.PresentationLayerElementData(frame)
+        self.PresentationLayerElementData(frame,top)
         top.update()
         canvas.config(scrollregion=canvas.bbox("all"))
         
         
         
     
-    def PresentationLayerElementData(self,parentFrame):
-        innerFrame_present=Frame(parentFrame,height=2000, width=800,bd=1,background= 'gray99')
+    def PresentationLayerElementData(self,parentFrame,top):
+        innerFrame_present=Frame(parentFrame,height=2800, width=800,bd=1,background= 'gray99')
         innerFrame_present.configure(highlightbackground="Medium Aquamarine", highlightcolor="Maroon", highlightthickness=2,bd=0)
         innerFrame_present.place(x = 230, y = 140)
         personalDetails_l=Label(innerFrame_present,text="Personal Details:",bg='gray99',font=("Helvetica", 16, UNDERLINE,BOLD),fg='steel blue')
@@ -451,10 +456,10 @@ class createAppGui:
         for data,value in sps.AppVariables.high_Link_dict.items():
             if  HL_counter<len(sps.AppVariables.high_Link_dict):
                 HL_Data=HL_Data+data+'\n'
-                Link_Data=Link_Data+value[0]+": "+value[1]+'\n'
+                Link_Data=Link_Data+"- "+value[0]+": "+value[1]+'\n'
             if HL_counter == len(sps.AppVariables.high_Link_dict):
                 HL_Data=HL_Data+data
-                Link_Data=Link_Data+value[0]+": "+value[1]+'\n'
+                Link_Data=Link_Data+"- "+value[0]+": "+value[1]+'\n'
             HL_counter+=1
                  
                  
@@ -498,10 +503,10 @@ class createAppGui:
         for data,value in sps.AppVariables.mid_Link_dict.items():
             if  ML_counter<len(sps.AppVariables.mid_Link_dict):
                 ML_Data=ML_Data+data+'\n'
-                Link_Data=Link_Data+value[0]+": "+value[1]+'\n'
+                Link_Data=Link_Data+"- "+value[0]+": "+value[1]+'\n'
             if ML_counter == len(sps.AppVariables.mid_Link_dict):
                 ML_Data=ML_Data+data
-                Link_Data=Link_Data+value[0]+": "+value[1]
+                Link_Data=Link_Data+"- "+value[0]+": "+value[1]
             ML_counter+=1
                  
                  
@@ -535,25 +540,195 @@ class createAppGui:
             ML_count_l=Label(innerFrame_present,text=totalCount_ML,bg='gray99',font=("Courier", 11),fg='Medium Orchid')
             ML_count_l.place(x=150,y=760)
         
+        
+        
         #low link 
+        LL_Data=""
+        LL_counter=1
+        for data,value in sps.AppVariables.low_Link_dict.items():
+            if  LL_counter<len(sps.AppVariables.mid_Link_dict):
+                LL_Data=LL_Data+data+'\n'
+                
+            if LL_counter == len(sps.AppVariables.low_Link_dict):
+                LL_Data=LL_Data+data
+                
+            LL_counter+=1
+                 
+                 
+        if len(sps.AppVariables.low_Link_dict)==0:
+            LL_Data="N/A"
+        
+        if LL_Data !="N/A":
+            LL_p_l=Label(innerFrame_present,text="Low Severity*",bg='gray99',font=("Times", 14,ITALIC,UNDERLINE),fg='Indian Red')
+        else:
+            LL_p_l=Label(innerFrame_present,text="Low Severity",bg='gray99',font=("Times", 14,ITALIC,UNDERLINE),fg='Light Steel Blue')
+        LL_p_l.place(x=10,y=940)
+         
+        edit_LL = tkst.ScrolledText(
+        master = innerFrame_present,
+        wrap   = 'word',  # wrap text at full words only
+        width  = 80,      # characters
+        height = 6,      # text lines
+        bg='gray99',
+        fg='Dark Slate Gray',    # background color of edit area
+        font=("Times", 12,BOLD)
+        )
+        edit_LL.configure(highlightbackground="White Smoke", highlightthickness=2,bd=0)
+        if LL_Data !="N/A":
+            edit_LL.configure(fg='Dark Slate Blue')
+        edit_LL.place(x=10,y=970)
+        edit_LL.insert('insert', LL_Data)
+        edit_LL.configure(state=DISABLED)
+        LL_dataCount=len(sps.AppVariables.low_Link_dict)
+        if LL_dataCount > 0:
+            totalCount_LL=" - Count: "+str(LL_dataCount)
+            LL_count_l=Label(innerFrame_present,text=totalCount_LL,bg='gray99',font=("Courier", 11),fg='Medium Orchid')
+            LL_count_l.place(x=120,y=940)   
+        
+        
         
         
         #online random data
         
-        #Image Presentation
+        if Link_Data=="":
+            Link_Data="N/A"
         
-        #top Image leaking websites
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+        if Link_Data !="N/A":
+            CL_p_l=Label(innerFrame_present,text="Web Content*",bg='gray99',font=("Times", 14,ITALIC,UNDERLINE),fg='Indian Red')
+        else:
+            CL_p_l=Label(innerFrame_present,text="Web Content",bg='gray99',font=("Times", 14,ITALIC,UNDERLINE),fg='Light Steel Blue')
+        CL_p_l.place(x=10,y=1120)
+         
+        edit_CL = tkst.ScrolledText(
+        master = innerFrame_present,
+        wrap   = 'word',  # wrap text at full words only
+        width  = 90,      # characters
+        height = 15,      # text lines
+        bg='gray99',
+        fg='Dark Slate Gray',    # background color of edit area
+        font=("Times", 12,BOLD)
+        )
+        edit_CL.configure(highlightbackground="White Smoke", highlightthickness=2,bd=0)
+        if Link_Data !="N/A":
+            edit_CL.configure(fg='Dark Slate Blue')
+        edit_CL.place(x=10,y=1150)
+        edit_CL.insert('insert', Link_Data)
+        edit_CL.configure(state=DISABLED)
 
         
-    
-    
+        #Image Presentation
+        imageDictLen=len(sps.AppVariables.image_bs64Image)
+        if imageDictLen >0:
+            I_p_l=Label(innerFrame_present,text="Web Images*",bg='gray99',font=("Times", 14,ITALIC,UNDERLINE),fg='Indian Red')
+        else:
+            I_p_l=Label(innerFrame_present,text="Web Images",bg='gray99',font=("Times", 14,ITALIC,UNDERLINE),fg='Light Steel Blue')
+        I_p_l.place(x=10,y=1500)
+        ImageFrame=Frame(innerFrame_present,highlightbackground="White Smoke", highlightthickness=2,bd=0,bg='gray99',height=680,width=750)
+        ImageFrame.place(x=10,y=1530)
+        img_count=1
+        x=30
+        y=15
+        ImageData_URL=""
+        ImageSource={}
+        if imageDictLen==0:
+            l1=Label(ImageFrame,text="N/A",bg='gray99',font=("Times", 36,ITALIC),fg='Dark Slate Blue')
+            l1.place(x=300,y=280)
+        for data,value in sps.AppVariables.image_bs64Image.items():
+            if img_count<=16:
+                L_count=Label(ImageFrame,image=value[1]).place(x=x,y=y)
+                x=x+150+30
+                if img_count%4==0:
+                    y=y+150+15
+                    x=30  
+#                 top.update()
+            if img_count<imageDictLen:
+                ImageData_URL=ImageData_URL+data+'\n'
+            else:
+                ImageData_URL=ImageData_URL+data
+            tempdict={value[0]:""}
+            ImageSource.update(tempdict)
+            img_count+=1
+        print(ImageData_URL)
+        print(ImageSource)
+        
+        
+        #Images link
+        
+        if ImageData_URL=="":
+            ImageData_URL="N/A"
+        
+        if ImageData_URL !="N/A":
+            ImageL_p_l=Label(innerFrame_present,text="Images URL*",bg='gray99',font=("Times", 14,ITALIC,UNDERLINE),fg='Indian Red')
+        else:
+            ImageL_p_l=Label(innerFrame_present,text="Images URL",bg='gray99',font=("Times", 14,ITALIC,UNDERLINE),fg='Light Steel Blue')
+        ImageL_p_l.place(x=10,y=2250)
+         
+        edit_ImageL = tkst.ScrolledText(
+        master = innerFrame_present,
+        wrap   = 'word',  # wrap text at full words only
+        width  = 90,      # characters
+        height = 10,      # text lines
+        bg='gray99',
+        fg='Dark Slate Gray',    # background color of edit area
+        font=("Times", 12,BOLD)
+        )
+        edit_ImageL.configure(highlightbackground="White Smoke", highlightthickness=2,bd=0)
+        if ImageData_URL !="N/A":
+            edit_ImageL.configure(fg='Dark Slate Blue')
+        edit_ImageL.place(x=10,y=2280)
+        edit_ImageL.insert('insert', ImageData_URL)
+        edit_ImageL.configure(state=DISABLED)
+        if imageDictLen > 0:
+            totalCount_ImageL=" - Count: "+str(imageDictLen)
+            ImageL_count_l=Label(innerFrame_present,text=totalCount_ImageL,bg='gray99',font=("Courier", 11),fg='Medium Orchid')
+            ImageL_count_l.place(x=120,y=2250) 
+            
+            
+        #Website Leaking images
+        LeakageI_Data=""
+        LLL_counter=1
+        for data,value in ImageSource.items():
+            if  LLL_counter<len(ImageSource):
+                LeakageI_Data=LeakageI_Data+data+'\n'
+                
+            if LLL_counter == len(ImageSource):
+                LeakageI_Data=LeakageI_Data+data
+                
+            LLL_counter+=1
+                 
+                 
+        if len(ImageSource)==0:
+            LeakageI_Data="N/A"
+        
+        if LeakageI_Data !="N/A":
+            LLL_p_l=Label(innerFrame_present,text="Websites Leaking Images*",bg='gray99',font=("Times", 14,ITALIC,UNDERLINE),fg='Indian Red')
+        else:
+            LLL_p_l=Label(innerFrame_present,text="Websites Leaking Images",bg='gray99',font=("Times", 14,ITALIC,UNDERLINE),fg='Light Steel Blue')
+        LLL_p_l.place(x=10,y=2520)
+         
+        edit_LLL = tkst.ScrolledText(
+        master = innerFrame_present,
+        wrap   = 'word',  # wrap text at full words only
+        width  = 50,      # characters
+        height = 5,      # text lines
+        bg='gray99',
+        fg='Dark Slate Gray',    # background color of edit area
+        font=("Times", 12,BOLD)
+        )
+        edit_LLL.configure(highlightbackground="White Smoke", highlightthickness=2,bd=0)
+        if LeakageI_Data !="N/A":
+            edit_LLL.configure(fg='Dark Slate Blue')
+        edit_LLL.place(x=10,y=2550)
+        edit_LLL.insert('insert', LeakageI_Data)
+        edit_LLL.configure(state=DISABLED)
+        LLL_dataCount=len(ImageSource)
+        if LLL_dataCount > 0:
+            totalCount_LLL=" - Count: "+str(LLL_dataCount)
+            LLL_count_l=Label(innerFrame_present,text=totalCount_LLL,bg='gray99',font=("Courier", 11),fg='Medium Orchid')
+            LLL_count_l.place(x=220,y=2520)
+        
+        #Animation
+        
+        #Save Button 
+        
+        #Close button
