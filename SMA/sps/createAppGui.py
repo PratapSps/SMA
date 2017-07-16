@@ -225,6 +225,7 @@ class createAppGui:
         self.PresentationLayerElementData(frame,top)
         top.update()
         canvas.config(scrollregion=canvas.bbox("all"))
+        self.statusBar(frame)
         
         
         
@@ -648,8 +649,8 @@ class createAppGui:
             tempdict={value[0]:""}
             ImageSource.update(tempdict)
             img_count+=1
-        print(ImageData_URL)
-        print(ImageSource)
+#         print(ImageData_URL)
+#         print(ImageSource)
         
         
         #Images link
@@ -730,5 +731,54 @@ class createAppGui:
         #Animation
         
         #Save Button 
+        save_button=Button(innerFrame_present,image=sps.AppVariables.saveButton,bg='gray99',bd = 0,height=48,width=150,command="")
+        save_button.place(x=40,y=2700)
         
         #Close button
+        close_button=Button(innerFrame_present,image=sps.AppVariables.closeButton,bg='gray99',bd = 0,height=48,width=150,command=self.top.destroy)
+        close_button.place(x=600,y=2700)
+        
+        
+    def statusBar(self,frame):
+        p_len=len(sps.AppVariables.phone_numbers)
+        e_len=len(sps.AppVariables.email_id)
+        a_len=len(sps.AppVariables.userAddress)
+        h_len=len(sps.AppVariables.high_Link_dict)
+        m_len=len(sps.AppVariables.mid_Link_dict)
+        
+        ii_len=len(sps.AppVariables.image_bs64Image)
+        StatusLabel=Label(frame,bg='ivory2')
+        StatusLabel_L=Label(frame,bg='ivory2')
+        if (p_len ==0 or e_len ==0 or a_len ==0):
+            if h_len<2:
+                if m_len<4:
+                    if ii_len<6:
+                        StatusLabel_L.configure(text="Cyber Presence:Very-Low",font=("Times", 10,BOLD),fg='red4')
+                        StatusLabel_L.place(x=855,y=90)
+                        StatusLabel.configure(image=sps.AppVariables.bar_1)
+                        StatusLabel.place(x=855,y=110)
+                    else:
+                        StatusLabel_L.configure(text="Cyber Presence: Low",font=("Times", 10,BOLD),fg='red4')
+                        StatusLabel_L.place(x=855,y=90)
+                        StatusLabel.configure(image=sps.AppVariables.bar_2)
+                        StatusLabel.place(x=855,y=110)
+                        
+                else:
+                    StatusLabel_L.configure(text="Cyber Presence: Medium",font=("Times", 10,BOLD),fg='red4')
+                    StatusLabel_L.place(x=855,y=90)
+                    StatusLabel.configure(image=sps.AppVariables.bar_3)
+                    StatusLabel.place(x=855,y=110)
+                
+            else:
+                StatusLabel_L.configure(text="Cyber Presence: High",font=("Times", 10,BOLD),fg='red4')
+                StatusLabel_L.place(x=855,y=90)
+                StatusLabel.configure(image=sps.AppVariables.bar_4)
+                StatusLabel.place(x=855,y=110)
+#             if(h_len < 2):      
+        else:
+            StatusLabel_L.configure(text="Cyber Presence: Very-High",font=("Times", 10,BOLD),fg='red4')
+            StatusLabel_L.place(x=855,y=90)
+            StatusLabel.configure(image=sps.AppVariables.bar_5)
+            StatusLabel.place(x=855,y=110)
+              
+        

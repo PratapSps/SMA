@@ -12,6 +12,13 @@ appLogo='images/applogo.png'
 appTitle='SMA'
 logo = PhotoImage(file=appLogo)
 button=PhotoImage(file='Images/button.png')
+saveButton=PhotoImage(file='Images/save1.png')
+closeButton=PhotoImage(file='Images/close.png')
+bar_1=PhotoImage(file='Images/bar_1.PNG')
+bar_2=PhotoImage(file='Images/bar_2.PNG')
+bar_3=PhotoImage(file='Images/bar_3.PNG')
+bar_4=PhotoImage(file='Images/bar_4.PNG')
+bar_5=PhotoImage(file='Images/bar_5.PNG')
 # appNotebook = ttk.Notebook(app)
 # appNotebook.grid(row=0,column=0,columnspan=50,rowspan=49,sticky='NESW')
 notebook = CustomNotebook(width=200, height=200)
