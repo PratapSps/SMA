@@ -38,20 +38,23 @@ class BackEndProcess():
         
         #important method which calls all the method.
         self.googleUrl("findData",sps.AppVariables.googleBaseUrl,sps.AppVariables.googleBaseUrl_1) 
-        newTempDict=sps.AppVariables.high_Link_dict
-        newTempDict.update(sps.AppVariables.mid_Link_dict)
+        tempH=sps.AppVariables.high_Link_dict
+        tempM=sps.AppVariables.mid_Link_dict
+        newTempDict={}
+        newTempDict.update(tempH)
+        newTempDict.update(tempM)
         self.getSocialMediaId(newTempDict)
         self.googleUrl("findImage",sps.AppVariables.googleImgUrl_1,sps.AppVariables.googleImgUrl_2) 
         self.generatebs64Img()
-        print((AppVariables.phone_numbers))
-        print(AppVariables.email_id)
-        print(AppVariables.userAddress)
-        print((sps.AppVariables.high_Link_dict))
-        print((sps.AppVariables.mid_Link_dict))
-        print((sps.AppVariables.low_Link_dict))
-        print(sps.AppVariables.SocialMeidaIdDict)
-        print(sps.AppVariables.image_dict)
-        print(sps.AppVariables.image_bs64Image)
+#         print((AppVariables.phone_numbers))
+#         print(AppVariables.email_id)
+#         print(AppVariables.userAddress)
+#         print((sps.AppVariables.high_Link_dict))
+#         print((sps.AppVariables.mid_Link_dict))
+#         print((sps.AppVariables.low_Link_dict))
+#         print(sps.AppVariables.SocialMeidaIdDict)
+#         print(sps.AppVariables.image_dict)
+#         print(sps.AppVariables.image_bs64Image)
         
         
     
@@ -202,13 +205,15 @@ class BackEndProcess():
         soup = BeautifulSoup(r.text, "html.parser")
         findG=soup.find_all('div', {'class':"rc"})
         for div in findG:
-            title=((div.find('h3', attrs={'class': 'r'}).text).encode(encoding='UTF-8',errors='strict'))
+            title=((div.find('h3', attrs={'class': 'r'}).text).encode("utf-8"))
 #             print(title)
-            key=((div.find('cite').text).encode(encoding='UTF-8',errors='strict'))
+            key=((div.find('cite').text).encode("utf-8"))
 #             print(key)
-            data=((div.find('span',attrs={'class':"st"}).text).encode(encoding='UTF-8',errors='strict'))
+            data=((div.find('span',attrs={'class':"st"}).text).encode("utf-8"))
 #             print(data)
             self.ParseFirstHandInfo(key.decode("utf-8"),title.decode("utf-8"),data.decode("utf-8"))
+            print("high############"+str(sps.AppVariables.high_Link_dict))
+            print("mid##############"+str(sps.AppVariables.mid_Link_dict))
         app.update()
         
                  
@@ -230,14 +235,18 @@ class BackEndProcess():
         
         if self.checkNamesInData(urlData):
             if self.ParsePhoneNum(urlData) or self.ParseEmail(urlData) or self.ParseAddress(urlData):
+                print("HIGH-------------"+urlData)
                 self.ParsePhoneNum(urlData)
                 self.ParseEmail(urlData)
                 self.ParseAddress(urlData)
                 tempdict={key:[title,urlData]}
                 sps.AppVariables.high_Link_dict.update(tempdict)
+                print("HIGH-------------"+str(tempdict))
             elif self.checkNamesInData(title):
+                print("Medium-------------"+urlData)
                 tempdict1={key:[title,urlData]}
                 sps.AppVariables.mid_Link_dict.update(tempdict1)
+                print("Medium-------------"+str(tempdict1))
             else:
                 tempdict2={key:[title]}
                 sps.AppVariables.low_Link_dict.update(tempdict2)
@@ -245,6 +254,7 @@ class BackEndProcess():
             if self.checkNamesInData(title):
                 tempdict1={key:[title,urlData]}
                 sps.AppVariables.mid_Link_dict.update(tempdict1)
+                print("Medium-------------"+str(tempdict1))
             else:
                 tempdict2={key:[title]}
                 sps.AppVariables.low_Link_dict.update(tempdict2)

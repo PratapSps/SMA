@@ -215,7 +215,7 @@ class createAppGui:
         canvas.pack(side=LEFT, fill=BOTH, expand=YES)
         frame = Frame(canvas)
         frame.pack(fill=BOTH)
-        canvas.create_window(0,0, anchor =NW, window = frame,height=1200,width=1200)
+        canvas.create_window(0,0, anchor =NW, window = frame,height=2200,width=1200)
         frame.config(background='ivory2')
         self.PresentationLayerElementData(frame)
         top.update()
@@ -225,7 +225,7 @@ class createAppGui:
         
     
     def PresentationLayerElementData(self,parentFrame):
-        innerFrame_present=Frame(parentFrame,height=1000, width=800,bd=1,background= 'gray99')
+        innerFrame_present=Frame(parentFrame,height=2000, width=800,bd=1,background= 'gray99')
         innerFrame_present.configure(highlightbackground="Medium Aquamarine", highlightcolor="Maroon", highlightthickness=2,bd=0)
         innerFrame_present.place(x = 230, y = 140)
         personalDetails_l=Label(innerFrame_present,text="Personal Details:",bg='gray99',font=("Helvetica", 16, UNDERLINE,BOLD),fg='steel blue')
@@ -364,7 +364,7 @@ class createAppGui:
                  
         if len(sps.AppVariables.SocialMeidaIdDict)==0:
             SMData="N/A"
-        print (SMData)
+        
         if SMData !="N/A":
             SM_p_l=Label(innerFrame_present,text="Social Media ID's*",bg='gray99',font=("Times", 14,ITALIC,UNDERLINE),fg='Indian Red')
         else:
@@ -395,9 +395,148 @@ class createAppGui:
         
         #Address Presentation
         
+        AddData=""
+        Add_counter=1
+        for data,value in sps.AppVariables.userAddress.items():
+            if data!="" and Add_counter<len(sps.AppVariables.userAddress):
+                AddData=AddData+data+'\n'
+            elif Add_counter == len(sps.AppVariables.userAddress):
+                AddData=AddData+data
+            Add_counter+=1
+                
+                
+        if len(sps.AppVariables.userAddress)==0:
+            AddData="N/A"
         
+        if AddData !="N/A":
+            Add_p_l=Label(innerFrame_present,text="Address*",bg='gray99',font=("Times", 14,ITALIC,UNDERLINE),fg='Indian Red')
+        else:
+            Add_p_l=Label(innerFrame_present,text="Address",bg='gray99',font=("Times", 14,ITALIC,UNDERLINE),fg='Light Steel Blue')
+        Add_p_l.place(x=10,y=320)
+        
+        edit_Add = tkst.ScrolledText(
+        master = innerFrame_present,
+        wrap   = 'word',  # wrap text at full words only
+        width  = 40,      # characters
+        height = 5,      # text lines
+        bg='gray99',
+        fg='Dark Slate Gray',    # background color of edit area
+        font=("Times", 12,BOLD)
+        )
+        if AddData !="N/A":
+            edit_Add.configure(fg='Dark Slate Blue')
+        edit_Add.configure(highlightbackground="White Smoke", highlightthickness=2,bd=0)
+        edit_Add.place(x=10,y=355)
+        edit_Add.insert('insert', AddData)
+        edit_Add.configure(state=DISABLED)
+        Add_dataCount=len(sps.AppVariables.userAddress)
+        if Add_dataCount > 0:
+            totalCount_e="Count: "+str(Add_dataCount)
+            add_count_l=Label(innerFrame_present,text=totalCount_e,bg='gray99',font=("Courier", 11),fg='Medium Orchid')
+            add_count_l.place(x=10,y=460)
+        
+        
+        Online_Content_l=Label(innerFrame_present,text="Online-Content:",bg='gray99',font=("Helvetica", 16, UNDERLINE,BOLD),fg='steel blue')
+        Online_Content_l.place(x=4,y=500)
         
         #Link criticality
+        Link_Criticality_l=Label(innerFrame_present,text="Link Severity",bg='gray99',font=("Helvetica", 14,BOLD),fg='Light Steel Blue')
+        Link_Criticality_l.place(x=335,y=540)
+        
+        Link_Data=""
+        
+        #High Critical Link
+        HL_Data=""
+        HL_counter=1
+        for data,value in sps.AppVariables.high_Link_dict.items():
+            if  HL_counter<len(sps.AppVariables.high_Link_dict):
+                HL_Data=HL_Data+data+'\n'
+                Link_Data=Link_Data+value[0]+": "+value[1]+'\n'
+            if HL_counter == len(sps.AppVariables.high_Link_dict):
+                HL_Data=HL_Data+data
+                Link_Data=Link_Data+value[0]+": "+value[1]+'\n'
+            HL_counter+=1
+                 
+                 
+        if len(sps.AppVariables.high_Link_dict)==0:
+            HL_Data="N/A"
+        
+        if HL_Data !="N/A":
+            HL_p_l=Label(innerFrame_present,text="High Severity*",bg='gray99',font=("Times", 14,ITALIC,UNDERLINE),fg='Indian Red')
+        else:
+            HL_p_l=Label(innerFrame_present,text="High Severity",bg='gray99',font=("Times", 14,ITALIC,UNDERLINE),fg='Light Steel Blue')
+        HL_p_l.place(x=10,y=580)
+         
+        edit_HL = tkst.ScrolledText(
+        master = innerFrame_present,
+        wrap   = 'word',  # wrap text at full words only
+        width  = 80,      # characters
+        height = 6,      # text lines
+        bg='gray99',
+        fg='Dark Slate Gray',    # background color of edit area
+        font=("Times", 12,BOLD)
+        )
+        edit_HL.configure(highlightbackground="White Smoke", highlightthickness=2,bd=0)
+        if HL_Data !="N/A":
+            edit_HL.configure(fg='Dark Slate Blue')
+        edit_HL.place(x=10,y=610)
+        edit_HL.insert('insert', HL_Data)
+        edit_HL.configure(state=DISABLED)
+        HL_dataCount=len(sps.AppVariables.high_Link_dict)
+        if HL_dataCount > 0:
+            totalCount_HL=" - Count: "+str(HL_dataCount)
+            HL_count_l=Label(innerFrame_present,text=totalCount_HL,bg='gray99',font=("Courier", 11),fg='Medium Orchid')
+            HL_count_l.place(x=130,y=580)
+        
+        
+        
+        
+        #mid link
+        
+        ML_Data=""
+        ML_counter=1
+        for data,value in sps.AppVariables.mid_Link_dict.items():
+            if  ML_counter<len(sps.AppVariables.mid_Link_dict):
+                ML_Data=ML_Data+data+'\n'
+                Link_Data=Link_Data+value[0]+": "+value[1]+'\n'
+            if ML_counter == len(sps.AppVariables.mid_Link_dict):
+                ML_Data=ML_Data+data
+                Link_Data=Link_Data+value[0]+": "+value[1]
+            ML_counter+=1
+                 
+                 
+        if len(sps.AppVariables.mid_Link_dict)==0:
+            ML_Data="N/A"
+        
+        if ML_Data !="N/A":
+            ML_p_l=Label(innerFrame_present,text="Medium Severity*",bg='gray99',font=("Times", 14,ITALIC,UNDERLINE),fg='Indian Red')
+        else:
+            ML_p_l=Label(innerFrame_present,text="Medium Severity",bg='gray99',font=("Times", 14,ITALIC,UNDERLINE),fg='Light Steel Blue')
+        ML_p_l.place(x=10,y=760)
+         
+        edit_ML = tkst.ScrolledText(
+        master = innerFrame_present,
+        wrap   = 'word',  # wrap text at full words only
+        width  = 80,      # characters
+        height = 6,      # text lines
+        bg='gray99',
+        fg='Dark Slate Gray',    # background color of edit area
+        font=("Times", 12,BOLD)
+        )
+        edit_ML.configure(highlightbackground="White Smoke", highlightthickness=2,bd=0)
+        if ML_Data !="N/A":
+            edit_ML.configure(fg='Dark Slate Blue')
+        edit_ML.place(x=10,y=790)
+        edit_ML.insert('insert', ML_Data)
+        edit_ML.configure(state=DISABLED)
+        ML_dataCount=len(sps.AppVariables.mid_Link_dict)
+        if ML_dataCount > 0:
+            totalCount_ML=" - Count: "+str(ML_dataCount)
+            ML_count_l=Label(innerFrame_present,text=totalCount_ML,bg='gray99',font=("Courier", 11),fg='Medium Orchid')
+            ML_count_l.place(x=150,y=760)
+        
+        #low link 
+        
         
         #online random data
         
