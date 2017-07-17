@@ -22,7 +22,9 @@ import tkinter.scrolledtext as tkst
 from PIL import Image, ImageTk
 import urllib
 from io import BytesIO
-
+from tkinter import filedialog
+from yattag import Doc
+import base64
 
 
 innerFrame=""
@@ -31,6 +33,8 @@ class createAppGui:
     name=""
     innerFrame=""
     launch_button=""
+    statusb64_Image=""
+    status=""
     #Constructor for initalizing GUI
     def __init__(self):
         icon = PhotoImage(file=appLogo)
@@ -186,6 +190,7 @@ class createAppGui:
         BackEndProcess().clearAllList()
         self.enableButton()
         self.presentationLayer(app)
+        
     
     #disable form button   
     def disableButton(self):
@@ -374,7 +379,7 @@ class createAppGui:
         if SMData !="N/A":
             SM_p_l=Label(innerFrame_present,text="Social Media ID's*",bg='gray99',font=("Times", 14,ITALIC,UNDERLINE),fg='Indian Red')
         else:
-            SM_p_l=Label(innerFrame_present,text="Email ID's",bg='gray99',font=("Times", 14,ITALIC,UNDERLINE),fg='Light Steel Blue')
+            SM_p_l=Label(innerFrame_present,text="Social Media ID's",bg='gray99',font=("Times", 14,ITALIC,UNDERLINE),fg='Light Steel Blue')
         SM_p_l.place(x=580,y=125)
          
         edit_SM = tkst.ScrolledText(
@@ -731,15 +736,16 @@ class createAppGui:
         #Animation
         
         #Save Button 
-        save_button=Button(innerFrame_present,image=sps.AppVariables.saveButton,bg='gray99',bd = 0,height=48,width=150,command="")
+        save_button=Button(innerFrame_present,image=sps.AppVariables.saveButton,bg='gray99',bd = 0,height=48,width=150,command=lambda:self.SaveFileAsHTML(phoneData))
         save_button.place(x=40,y=2700)
         
         #Close button
         close_button=Button(innerFrame_present,image=sps.AppVariables.closeButton,bg='gray99',bd = 0,height=48,width=150,command=self.top.destroy)
         close_button.place(x=600,y=2700)
         
-        
+    #code for displayng and selecting the status bar   
     def statusBar(self,frame):
+        
         p_len=len(sps.AppVariables.phone_numbers)
         e_len=len(sps.AppVariables.email_id)
         a_len=len(sps.AppVariables.userAddress)
@@ -757,28 +763,259 @@ class createAppGui:
                         StatusLabel_L.place(x=855,y=90)
                         StatusLabel.configure(image=sps.AppVariables.bar_1)
                         StatusLabel.place(x=855,y=110)
+                        with open("Images/bar_1.PNG", "rb") as imageFile:
+                            self.statusb64_Image= base64.b64encode(imageFile.read())
+                        self.status="Very-Low"
+                            
                     else:
                         StatusLabel_L.configure(text="Cyber Presence: Low",font=("Times", 10,BOLD),fg='red4')
                         StatusLabel_L.place(x=855,y=90)
                         StatusLabel.configure(image=sps.AppVariables.bar_2)
                         StatusLabel.place(x=855,y=110)
+                        with open("Images/bar_2.PNG", "rb") as imageFile:
+                            self.statusb64_Image= base64.b64encode(imageFile.read())
+                        self.status="Low"
                         
                 else:
                     StatusLabel_L.configure(text="Cyber Presence: Medium",font=("Times", 10,BOLD),fg='red4')
                     StatusLabel_L.place(x=855,y=90)
                     StatusLabel.configure(image=sps.AppVariables.bar_3)
                     StatusLabel.place(x=855,y=110)
+                    with open("Images/bar_3.PNG", "rb") as imageFile:
+                            self.statusb64_Image= base64.b64encode(imageFile.read())
+                    self.status="Medium"
                 
             else:
                 StatusLabel_L.configure(text="Cyber Presence: High",font=("Times", 10,BOLD),fg='red4')
                 StatusLabel_L.place(x=855,y=90)
                 StatusLabel.configure(image=sps.AppVariables.bar_4)
                 StatusLabel.place(x=855,y=110)
-#             if(h_len < 2):      
+                with open("Images/bar_4.PNG", "rb") as imageFile:
+                            self.statusb64_Image= base64.b64encode(imageFile.read())
+                self.status="High"
+#                  
         else:
-            StatusLabel_L.configure(text="Cyber Presence: Very-High",font=("Times", 10,BOLD),fg='red4')
-            StatusLabel_L.place(x=855,y=90)
-            StatusLabel.configure(image=sps.AppVariables.bar_5)
-            StatusLabel.place(x=855,y=110)
+            if p_len ==0 and e_len ==0 and a_len ==0:
+                StatusLabel_L.configure(text="Cyber Presence: Very-High",font=("Times", 10,BOLD),fg='red4')
+                StatusLabel_L.place(x=855,y=90)
+                StatusLabel.configure(image=sps.AppVariables.bar_5)
+                StatusLabel.place(x=855,y=110)
+                with open("Images/bar_5.PNG", "rb") as imageFile:
+                            self.statusb64_Image= base64.b64encode(imageFile.read())
+                self.status="Very-High"
+            else:
+                StatusLabel_L.configure(text="Cyber Presence: High",font=("Times", 10,BOLD),fg='red4')
+                StatusLabel_L.place(x=855,y=90)
+                StatusLabel.configure(image=sps.AppVariables.bar_4)
+                StatusLabel.place(x=855,y=110)
+                with open("Images/bar_4.PNG", "rb") as imageFile:
+                            self.statusb64_Image= base64.b64encode(imageFile.read())
+                self.status="High"
+        
+        
+            
+    #method for saving the file as html
+    def SaveFileAsHTML(self,phoneData):
+        filename = filedialog.asksaveasfile(mode='w', defaultextension=".html")
+        doc, tag, text = Doc().tagtext()
+        with tag('html'):
+            with tag('body',style="background-color:#ffffe6"):
+                
+                #Main Division
+                with tag('div',style="background-color:#f2f2f2;width:70%;height:500%;border:1px solid green; margin: 150px 0 0 180px;"):
+                    with tag('h2'):
+                        with tag('center'):
+                            text(sps.AppVariables.First_Name_data+" "+sps.AppVariables.Last_Name_data+" : Cyber Presence \n")
+                    barImage="data:image/PNG;base64,"+str(self.statusb64_Image.decode('utf-8'))
+                    
+                    
+                    #status division
+                    with tag('div',id="photo-status", align="RIGHT" ,style="padding:1em;"):
+                        with tag('h5',style="color:red;"):
+                                text("Cyber Presence: "+self.status)
+                        doc.stag('img', src=barImage, klass="photo")
+                    
+                    #personal details
+                    with tag('div',id="personal-details",style="padding:1em;border:1px solid  #ffffe6"):
+                        with tag('h3',style="color:#000066,font-style: bold;text-decoration: underline",align="LEFT"):
+                            text("Personal Details:")
+                            
+                            
+                        with tag('label',style="font-style:italic"):
+                            with tag('font',color="#005cb3"):
+                                text("First Name     : ")
+                        with tag('label',style="font-weight:bold"):
+                            with tag('font',color="#001a33"):
+                                text(sps.AppVariables.First_Name_data)
+                        doc.stag('br')
+                        
+                        
+                        with tag('label',style="font-style:italic"):
+                            with tag('font',color="#005cb3"):
+                                text("Middle Name     : ")
+                        with tag('label',style="font-weight:bold"):
+                            with tag('font',color="#001a33"):
+                                if sps.AppVariables.Middle_Name_data!="":
+                                    text(sps.AppVariables.Middle_Name_data) 
+                                else:
+                                    text("N/A")
+                        doc.stag('br')
+                        
+                        with tag('label',style="font-style:italic"):
+                            with tag('font',color="#005cb3"):
+                                text("Last Name     : ")
+                        with tag('label',style="font-weight:bold"):
+                            with tag('font',color="#001a33"):
+                                if sps.AppVariables.Last_Name_data!="":
+                                    text(sps.AppVariables.Last_Name_data) 
+                                else:
+                                    text("N/A")
+                        
+                        with tag('h4',style="color:#000066; font-style:bold; text-decoration: underline",align="LEFT"):
+                            text("Phone Numbers:")
+                        for data,value in sps.AppVariables.phone_numbers.items():
+                            text(data)
+                            doc.stag('br')
+                        if len(sps.AppVariables.phone_numbers)==0:
+                            text("N/A")
+                        doc.stag('br')
+                            
+                        with tag('h4',style="color:#000066; font-style:bold; text-decoration: underline",align="LEFT"):
+                            text("Email's:")
+                        for data,value in sps.AppVariables.email_id.items():
+                            text(data)
+                            doc.stag('br')
+                        if len(sps.AppVariables.email_id)==0:
+                            text("N/A")
+                        doc.stag('br')
+                            
+                        with tag('h4',style="color:#000066; font-style:bold; text-decoration: underline",align="LEFT"):
+                            text("Address:")
+                        for data,value in sps.AppVariables.userAddress.items():
+                            text(data)
+                            doc.stag('br')
+                        if len(sps.AppVariables.userAddress)==0:
+                            text("N/A")
+                        doc.stag('br')
+                        
+                        with tag('h4',style="color:#000066;",align="LEFT"):
+                            with tag('u'):
+                                with tag('b'): 
+                                    text("Social Media ID's:")
+                        for data,value in sps.AppVariables.SocialMeidaIdDict.items():
+                            with tag('a',href=data):
+                                text(value[0]+"   -   ID : "+value[1]+" .         Link:  "+data)
+                            doc.stag('br')
+                        if len(sps.AppVariables.SocialMeidaIdDict)==0:
+                            text("N/A")
+                        doc.stag('br')
+                        doc.stag('br')
+                        
+                        
+                    onlineContent=[]
+                    
+                    with tag('div',id="Online Content",style="padding:1em;border:1px solid  #ffffe6"):
+                        with tag('h3',style="color:#000066,",align="LEFT"):
+                            with tag('u'):
+                                with tag('b'): 
+                                    text("Online Content:")
+                            
+                        doc.stag('br')
+                        
+                        with tag('h4',style="color:#000066; ",align="LEFT"):
+                            with tag('u'):
+                                with tag('b'): 
+                                    text("High Severity Links:")
+                        for data,value in sps.AppVariables.high_Link_dict.items():
+                            with tag('a',href=data):
+                                text(data)
+                                onlineContent.append(value[1])
+                                doc.stag('br')
+                        if len(sps.AppVariables.high_Link_dict)==0:
+                            text("N/A")
+                        doc.stag('br')
+                        
+                        with tag('h4',style="color:#000066; font-style:bold; text-decoration: underline",align="LEFT"):
+                            with tag('u'):
+                                with tag('b'): 
+                                    text("Medium Severity Links:")
+                        for data,value in sps.AppVariables.mid_Link_dict.items():
+                            with tag('a',href=data):
+                                text(data)
+                                onlineContent.append(value[1])
+                                doc.stag('br')
+                        if len(sps.AppVariables.mid_Link_dict)==0:
+                            text("N/A")
+                        doc.stag('br')
+                        
+                        with tag('h4',style="color:#000066;",align="LEFT"):
+                            with tag('u'):
+                                with tag('b'): 
+                                    text("Low Severity Links:")
+                        for data,value in sps.AppVariables.low_Link_dict.items():
+                            with tag('a',href=data):
+                                text(data)
+                                doc.stag('br')
+                        if len(sps.AppVariables.low_Link_dict)==0:
+                            text("N/A")
+                        doc.stag('br')
+                        
+                        
+                        with tag('h4',style="color:#000066;",align="LEFT"):
+                            with tag('u'):
+                                with tag('b'): 
+                                    text("Online Activity:")
+                            with tag('ul'):
+                                for data in onlineContent:
+                                    with tag('li'):
+                                        text(data)
+                        if len(onlineContent)==0:
+                            text("N/A")
+                        doc.stag('br')
+ 
+                        imageuniqueDict={}
+                        
+                        with tag('h4',style="color:#000066;",align="LEFT"):
+                            with tag('u'):
+                                with tag('b'): 
+                                    text("Web Image's Link:")
+                        for data,value in sps.AppVariables.image_bs64Image.items():
+                            with tag('a',href=data):
+                                text(data)
+                                imageuniqueDict.update({value[0]:""})
+                                doc.stag('br')
+                        if len(sps.AppVariables.image_bs64Image)==0:
+                            text("N/A")
+                        doc.stag('br')
+                        
+
+                        with tag('h4',style="color:#000066;",align="LEFT"):
+                            with tag('u'):
+                                with tag('b'): 
+                                    text("Websites Leaking Images:")
+                            with tag('ul'):
+                                for data,value in imageuniqueDict.items():
+                                    with tag('li'):
+                                        text(data)
+                        if len(imageuniqueDict)==0:
+                            text("N/A")
+                        doc.stag('br')                        
+                        
+                        
+                                              
+                    
+                        
+                        
+                        
+                        
+                        
+                        
+                    
+                            
+        filename.write(doc.getvalue())
+        filename.close()
+        
+        
+        
               
         
